@@ -1,0 +1,43 @@
+#visitant-container {
+  display: flex;
+  height: 100%;
+}
+
+#visitant-background {
+  flex: auto;
+  background: url('../../assets/images/background-2.jpg') no-repeat;
+  background-size: cover;
+  background-position: center 10%;
+}
+
+#visitant-background + * {
+  width: 700px;
+  height: 100%;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 850px) and (max-width: 1100px) {
+  #visitant-background + * {
+    width: 500px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 850px) {
+  #visitant-background + * {
+    width: 400px;
+  }
+}
+
+@media (max-width: 700px) {
+  #visitant-background {
+    display: none;
+  }
+
+  #visitant-background + * {
+    flex: auto;
+  }
+}
+
