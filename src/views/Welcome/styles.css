@@ -1,0 +1,53 @@
+.welcome.container {}
+
+.welcome.title {
+  font-family: Nunito;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.welcome.title>img {
+  display: block;
+  font-family: Quicksand;
+  font-weight: bold;
+  width: 290px;
+}
+
+.welcome.description {
+  margin: 15px 0px 100px;
+  font-family: Nunito;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.welcome.actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome.actions .welcome.action {
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 24px;
+
+  color: white;
+  background-color: #62E597;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.welcome.actions > a:not(:first-child) {
+  margin-top: 15px;
+}
+
+.welcome.actions .welcome.action:hover {
+  background-color: #50c47e;
+}

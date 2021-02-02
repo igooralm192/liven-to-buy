@@ -14,7 +14,7 @@ const Routes: React.FC = () => {
       <Switch>
         <Route component={Welcome} path="/welcome" />
 
-        <Redirect path="*" to="/welcome" />
+        <Redirect exact from="/" to="/welcome" />
       </Switch>
     </Router>
   )
