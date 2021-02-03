@@ -6,9 +6,10 @@ import './styles.css'
 
 interface Props {
   products: Product[]
+  onAddProduct: (productId: string) => void
 }
 
-const ProductsList: React.FC<Props> = ({ products }) => {
+const ProductsList: React.FC<Props> = ({ products, onAddProduct }) => {
   return (
     <ul className="products list">
       {products.map(product => (
@@ -30,7 +31,11 @@ const ProductsList: React.FC<Props> = ({ products }) => {
             </p>
           </div>
 
-          <button type="button" className="product buy">
+          <button
+            type="button"
+            className="product buy"
+            onClick={() => onAddProduct(product.id)}
+          >
             Buy
           </button>
         </li>

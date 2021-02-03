@@ -1,3 +1,4 @@
+import { Product } from '../products/types'
 import { CartActions, CartActionTypes } from './types'
 
 export const cartRequest = (): CartActions => {
@@ -15,10 +16,10 @@ export const cartFailure = (error: string): CartActions => {
   }
 }
 
-export const addProduct = (productId: string): CartActions => {
+export const addProduct = (productId: string, quantity = 1): CartActions => {
   return {
     type: CartActionTypes.ADD_PRODUCT,
-    payload: { productId },
+    payload: { productId, quantity },
   }
 }
 
@@ -28,6 +29,19 @@ export const removeProduct = (productId: string): CartActions => {
     payload: { productId },
   }
 }
+
+const updateQuantity = (productId: string, quantity: number): CartActions => {
+  return {
+    type: CartActionTypes.UPDATE_QUANTITY,
+    payload: { productId, quantity },
+  }
+}
+
+export const incrementQuantity = (product: Product): CartActions =>
+  updateQuantity(product.id, product.quantity + 1)
+
+export const decrementQuantity = (product: Product): CartActions =>
+  updateQuantity(product.id, product.quantity - 1)
 
 export const hideError = (): CartActions => {
   return {

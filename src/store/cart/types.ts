@@ -7,17 +7,23 @@ export const CartActionTypes = {
 
   ADD_PRODUCT: 'ADD_PRODUCT',
   REMOVE_PRODUCT: 'REMOVE_PRODUCT',
+  UPDATE_QUANTITY: 'UPDATE_QUANTITY',
 
   HIDE_ERROR: 'HIDE_ERROR',
 } as const
 
 type CartActionTypes = typeof CartActionTypes[keyof typeof CartActionTypes]
 
+export interface CartProduct {
+  id: string
+  quantity: number
+}
+
 export interface CartState {
   isFetching: boolean
   error?: string
 
-  products: string[]
+  products: CartProduct[]
 }
 
 export interface CartRequestAction {
@@ -35,6 +41,7 @@ export interface AddProductAction {
   type: typeof CartActionTypes.ADD_PRODUCT
   payload: {
     productId: string
+    quantity?: number
   }
 }
 
@@ -42,6 +49,14 @@ export interface RemoveProductAction {
   type: typeof CartActionTypes.REMOVE_PRODUCT
   payload: {
     productId: string
+  }
+}
+
+export interface UpdateQuantityAction {
+  type: typeof CartActionTypes.UPDATE_QUANTITY
+  payload: {
+    productId: string
+    quantity: number
   }
 }
 
@@ -61,4 +76,5 @@ export type CartActions =
   | CartFailureAction
   | AddProductAction
   | RemoveProductAction
+  | UpdateQuantityAction
   | HideErrorAction

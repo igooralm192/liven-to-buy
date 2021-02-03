@@ -10,3 +10,30 @@
 
   margin-bottom: 20px;
 }
+
+.products.cart.btn {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 70px;
+  height: 70px;
+
+  background-color: var(--primary-color);
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  color: white;
+  font-size: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+}
+
+.products.cart.btn:hover {
+  background-color: #50c07d;
+}
+
