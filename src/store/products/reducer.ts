@@ -39,8 +39,6 @@ const productsReducer = (
         {},
       )
 
-      console.log('SET_PRODUCTS', productsById)
-
       return {
         ...state,
         isFetching: false,
@@ -55,7 +53,7 @@ const productsReducer = (
       }
 
     default:
-      return initialState
+      return state
   }
 }
 

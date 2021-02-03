@@ -7,7 +7,7 @@ export const getProducts = (): GetProductsThunkAction => {
   return async (dispatch, getState) => {
     const state = getState()
 
-    if (state.isFetching) return
+    if (state.products.isFetching) return
 
     dispatch(productsRequest())
 

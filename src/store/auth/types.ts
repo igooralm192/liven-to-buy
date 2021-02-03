@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk'
+import { AppState } from '..'
 
 export interface User {
   name: string
@@ -69,7 +70,7 @@ export interface HideErrorAction {
 
 export type AuthenticateUserThunkAction = ThunkAction<
   Promise<void>,
-  AuthState,
+  AppState,
   void,
   AuthActions
 >

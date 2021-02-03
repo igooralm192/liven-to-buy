@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk'
+import { AppState } from '..'
 
 export const ProductsActionTypes = {
   PRODUCTS_REQUEST: 'PRODUCTS_REQUEST',
@@ -52,7 +53,7 @@ export interface HideErrorAction {
 
 export type GetProductsThunkAction = ThunkAction<
   Promise<void>,
-  ProductsState,
+  AppState,
   void,
   ProductsActions
 >

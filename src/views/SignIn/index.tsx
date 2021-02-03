@@ -91,69 +91,67 @@ const SignIn: React.FC = () => {
   }, [error])
 
   return (
-    <VisitantLayout>
-      <section className="sign-in container">
-        <div className="sign-in back">
-          <FaArrowLeft onClick={() => history.goBack()} />
-        </div>
+    <section className="sign-in container">
+      <div className="sign-in back">
+        <FaArrowLeft onClick={() => history.goBack()} />
+      </div>
 
-        <div className="sign-in title">Sign in</div>
+      <div className="sign-in title">Sign in</div>
 
-        <div className="sign-in logged">
-          Don&apos;t have an account?
-          <Link to="/sign-up"> Sign up.</Link>
-        </div>
+      <div className="sign-in logged">
+        Don&apos;t have an account?
+        <Link to="/sign-up"> Sign up.</Link>
+      </div>
 
-        <form className="sign-in form">
-          <fieldset
-            className={`sign-in form-control ${errors.email ? 'error' : ''}`}
+      <form className="sign-in form">
+        <fieldset
+          className={`sign-in form-control ${errors.email ? 'error' : ''}`}
+        >
+          <input
+            name="email"
+            type="text"
+            placeholder="E-mail"
+            value={values.email}
+            onChange={handleChange}
+          />
+          <FaEnvelope className="icon" />
+          <span className="error-message">{errors.email}</span>
+        </fieldset>
+        <fieldset
+          className={`sign-in form-control ${errors.password ? 'error' : ''}`}
+        >
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          <FaLock className="icon" />
+          <span className="error-message">{errors.password}</span>
+        </fieldset>
+      </form>
+
+      <div className="sign-in actions">
+        <Link to="/sign-in">
+          <button
+            type="button"
+            className="sign-in action"
+            onClick={() => submitForm()}
+            disabled={isFetching}
           >
-            <input
-              name="email"
-              type="text"
-              placeholder="E-mail"
-              value={values.email}
-              onChange={handleChange}
-            />
-            <FaEnvelope className="icon" />
-            <span className="error-message">{errors.email}</span>
-          </fieldset>
-          <fieldset
-            className={`sign-in form-control ${errors.password ? 'error' : ''}`}
-          >
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            <FaLock className="icon" />
-            <span className="error-message">{errors.password}</span>
-          </fieldset>
-        </form>
+            {isFetching ? `...` : `Sign in`}
+          </button>
+        </Link>
+      </div>
 
-        <div className="sign-in actions">
-          <Link to="/sign-in">
-            <button
-              type="button"
-              className="sign-in action"
-              onClick={() => submitForm()}
-              disabled={isFetching}
-            >
-              {isFetching ? `...` : `Sign in`}
-            </button>
-          </Link>
-        </div>
-
-        <Notification
-          open={notificationOpen}
-          title={notificationTitle}
-          description={notificationDescription}
-          onClose={closeNotification}
-        />
-      </section>
-    </VisitantLayout>
+      <Notification
+        open={notificationOpen}
+        title={notificationTitle}
+        description={notificationDescription}
+        onClose={closeNotification}
+      />
+    </section>
   )
 }
 

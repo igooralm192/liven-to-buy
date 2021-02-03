@@ -17,7 +17,7 @@ export const authenticateUser = (
   return async (dispatch, getState) => {
     const state = getState()
 
-    if (state.isFetching) return
+    if (state.auth.isFetching) return
 
     dispatch(authenticateUserRequest())
 
@@ -41,7 +41,7 @@ export const createUser = (
   return async (dispatch, getState) => {
     const state = getState()
 
-    if (state.isFetching) return
+    if (state.auth.isFetching) return
 
     dispatch(createUserRequest())
 

@@ -1,6 +1,6 @@
 #visitant-container {
   display: flex;
-  height: 100%;
+  min-height: inherit;
 }
 
 #visitant-background {
@@ -12,7 +12,6 @@
 
 #visitant-background + * {
   width: 700px;
-  height: 100%;
   padding: 0 80px;
   display: flex;
   flex-direction: column;

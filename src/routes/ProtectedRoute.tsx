@@ -6,6 +6,7 @@ import {
   RouteProps,
   RouteComponentProps,
 } from 'react-router-dom'
+import VisitantLayout from '../layout/Visitant'
 
 import { AppState } from '../store'
 
@@ -24,7 +25,9 @@ const ProtectedRoute: React.FC<Props> = ({
       {...routeProps}
       render={props => {
         return !isAuthenticated ? (
-          <Component {...props} />
+          <VisitantLayout>
+            <Component {...props} />
+          </VisitantLayout>
         ) : (
           <Redirect
             to={{
