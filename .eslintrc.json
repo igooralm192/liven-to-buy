@@ -25,6 +25,7 @@
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/no-empty-function": "off",
     "react/prop-types": "off",
     "prettier/prettier": "error",
     "no-use-before-define": "off",

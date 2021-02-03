@@ -1,0 +1,34 @@
+.notification.container {
+  position: fixed;
+  top: 40px;
+  right: -460px;
+  visibility: hidden;
+  width: 400px;
+  /* height: 50px; */
+  padding: 18px 20px;
+  border: 2px solid #F22613;
+  border-radius: 8px;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 14px rgb(255, 63, 63, 0.2);
+}
+
+.notification.container.active {
+  right: 80px;
+  visibility: visible;
+}
+
+.notification.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.notification.header .notification.close {
+  cursor: pointer;
+  color: #DEDEDE
+}
+
+.notification.header .notification.close:hover {
+  color: #A0A0A0;
+}
