@@ -8,7 +8,7 @@ import {
 } from './actions'
 import { AuthenticateUserThunkAction } from './types'
 
-import { login, register } from '../../api/auth'
+import api from '../../services/api'
 
 export const authenticateUser = (
   email: string,
@@ -22,7 +22,7 @@ export const authenticateUser = (
     dispatch(authenticateUserRequest())
 
     try {
-      const user = await login(email, password)
+      const user = await api.login(email, password)
 
       dispatch(authenticateUserSuccess(user))
     } catch (err) {
@@ -46,7 +46,7 @@ export const createUser = (
     dispatch(createUserRequest())
 
     try {
-      const user = await register(name, email, cpf, birthdate, password)
+      const user = await api.register(name, email, cpf, birthdate, password)
 
       dispatch(createUserSuccess(user))
     } catch (err) {
