@@ -8,6 +8,7 @@ import {
 
 import Welcome from '../views/Welcome'
 import SignIn from '../views/SignIn'
+import SignUp from '../views/SignUp'
 
 const Routes: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Routes: React.FC = () => {
       <Switch>
         <Route component={Welcome} path="/welcome" />
         <Route component={SignIn} path="/sign-in" />
+        <Route component={SignUp} path="/sign-up" />
 
         <Redirect exact from="/" to="/welcome" />
       </Switch>

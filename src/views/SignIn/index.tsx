@@ -10,7 +10,7 @@ import './styles.css'
 import Notification from '../../components/Notification'
 import VisitantLayout from '../../layout/Visitant'
 
-import { AuthenticateUserByEmailErrorsCode } from '../../api/auth'
+import { LoginErrorsCode } from '../../api/auth'
 
 import { AppState } from '../../store'
 import { hideError } from '../../store/auth/actions'
@@ -51,8 +51,6 @@ const SignIn: React.FC = () => {
   }
 
   function handleSubmitForm(email: string, password: string) {
-    if (!email || !password) return
-
     dispatch(authenticateUser(email, password))
   }
 
@@ -66,12 +64,12 @@ const SignIn: React.FC = () => {
     if (!error) return () => {}
 
     switch (error) {
-      case AuthenticateUserByEmailErrorsCode.INCORRECT_EMAIL:
+      case LoginErrorsCode.INCORRECT_EMAIL:
         setNotificationTitle('Incorrect e-mail')
         setNotificationDescription('This user does not exists.')
         break
 
-      case AuthenticateUserByEmailErrorsCode.INCORRECT_PASSWORD:
+      case LoginErrorsCode.INCORRECT_PASSWORD:
         setNotificationTitle('Incorrect password')
         setNotificationDescription(
           'This password does not match with this user.',
@@ -102,7 +100,7 @@ const SignIn: React.FC = () => {
         <div className="sign-in title">Sign in</div>
 
         <div className="sign-in logged">
-          Already have an account?
+          Don&apos;t have an account?
           <Link to="/sign-up"> Sign up.</Link>
         </div>
 

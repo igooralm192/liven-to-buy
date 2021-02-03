@@ -12,6 +12,11 @@ export const AuthActionTypes = {
   AUTHENTICATE_USER_REQUEST: 'AUTHENTICATE_USER_REQUEST',
   AUTHENTICATE_USER_SUCCESS: 'AUTHENTICATE_USER_SUCCESS',
   AUTHENTICATE_USER_FAILURE: 'AUTHENTICATE_USER_FAILURE',
+
+  CREATE_USER_REQUEST: 'CREATE_USER_REQUEST',
+  CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS',
+  CREATE_USER_FAILURE: 'CREATE_USER_FAILURE',
+
   HIDE_ERROR: 'HIDE_ERROR',
 } as const
 
@@ -41,6 +46,23 @@ export interface AuthenticateUserFailureAction {
   }
 }
 
+export interface CreateUserRequestAction {
+  type: typeof AuthActionTypes.CREATE_USER_REQUEST
+}
+
+export interface CreateUserSuccessAction {
+  type: typeof AuthActionTypes.CREATE_USER_SUCCESS
+  payload: {
+    user: User
+  }
+}
+export interface CreateUserFailureAction {
+  type: typeof AuthActionTypes.CREATE_USER_FAILURE
+  payload: {
+    error: string
+  }
+}
+
 export interface HideErrorAction {
   type: typeof AuthActionTypes.HIDE_ERROR
 }
@@ -52,8 +74,18 @@ export type AuthenticateUserThunkAction = ThunkAction<
   AuthActions
 >
 
+export type CreateUserThunkAction = ThunkAction<
+  Promise<void>,
+  AuthState,
+  void,
+  AuthActions
+>
+
 export type AuthActions =
   | AuthenticateUserRequestAction
   | AuthenticateUserSuccessAction
   | AuthenticateUserFailureAction
+  | CreateUserRequestAction
+  | CreateUserSuccessAction
+  | CreateUserFailureAction
   | HideErrorAction

@@ -1,37 +1,64 @@
 import { User } from '../../store/auth/types'
 
-export const AuthenticateUserByEmailErrorsCode = {
+export const LoginErrorsCode = {
   INCORRECT_EMAIL: '404',
   INCORRECT_PASSWORD: '401',
 } as const
 
-export type AuthenticateUserByEmailErrorsCode = typeof AuthenticateUserByEmailErrorsCode[keyof typeof AuthenticateUserByEmailErrorsCode]
+export type LoginErrorsCode = typeof LoginErrorsCode[keyof typeof LoginErrorsCode]
 
-const users: User[] = [
-  {
-    name: 'Igor',
-    email: 'igoor1205@gmail.com',
-    password: '123456',
-    birthdate: new Date(),
-    cpf: '123.456.789-01',
-  },
-]
+export const RegisterErrorsCode = {
+  USER_EXISTS: '404',
+} as const
 
-export const authenticateUserByEmail = async (
-  email: string,
-  password: string,
-): Promise<User> => {
+export type RegisterErrorsCode = typeof RegisterErrorsCode[keyof typeof RegisterErrorsCode]
+
+const users: User[] = []
+
+export const login = async (email: string, password: string): Promise<User> => {
+  await new Promise(resolve => setTimeout(resolve, 1000))
+
   const filteredUser = users.find(user => user.email === email)
 
   if (!filteredUser) {
-    throw new Error(AuthenticateUserByEmailErrorsCode.INCORRECT_EMAIL)
+    throw new Error(LoginErrorsCode.INCORRECT_EMAIL)
   }
 
   const samePassword = filteredUser.password === password
 
   if (!samePassword) {
-    throw new Error(AuthenticateUserByEmailErrorsCode.INCORRECT_PASSWORD)
+    throw new Error(LoginErrorsCode.INCORRECT_PASSWORD)
   }
 
   return filteredUser
+}
+
+export const register = async (
+  name: string,
+  email: string,
+  cpf: string,
+  birthdate: Date,
+  password: string,
+): Promise<User> => {
+  await new Promise(resolve => setTimeout(resolve, 1000))
+
+  const filteredUser = users.find(
+    user => user.email === email || user.cpf === cpf,
+  )
+
+  if (filteredUser) {
+    throw new Error(RegisterErrorsCode.USER_EXISTS)
+  }
+
+  const user: User = {
+    name,
+    email,
+    cpf,
+    birthdate,
+    password,
+  }
+
+  users.push(user)
+
+  return user
 }
