@@ -20,6 +20,26 @@ export const authenticateUserFailure = (error: string): AuthActions => {
   }
 }
 
+export const createUserRequest = (): AuthActions => {
+  return {
+    type: AuthActionTypes.CREATE_USER_REQUEST,
+  }
+}
+
+export const createUserSuccess = (user: User): AuthActions => {
+  return {
+    type: AuthActionTypes.CREATE_USER_SUCCESS,
+    payload: { user },
+  }
+}
+
+export const createUserFailure = (error: string): AuthActions => {
+  return {
+    type: AuthActionTypes.CREATE_USER_FAILURE,
+    payload: { error },
+  }
+}
+
 export const hideError = (): AuthActions => {
   return {
     type: AuthActionTypes.HIDE_ERROR,

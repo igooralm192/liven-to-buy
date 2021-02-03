@@ -1,13 +1,13 @@
-.sign-in.container {
+.sign-up.container {
   position: relative;
 }
 
-.sign-in.back :first-child {
+.sign-up.back :first-child {
   color: #A3A3A3;
   cursor: pointer;
 }
 
-.sign-in.title {
+.sign-up.title {
   display: block;
   font-family: Quicksand;
   font-weight: bold;
@@ -15,38 +15,38 @@
   color: #3B3B3B;
 }
 
-.sign-in.logged {
+.sign-up.logged {
   margin-top: 8px;
   font-family: Nunito;
   font-weight: 300;
 }
 
-.sign-in.logged>a {
+.sign-up.logged>a {
   text-decoration: none;
 
   font-weight: bold;
   color: var(--primary-color);
 }
 
-.sign-in.form {
+.sign-up.form {
   margin: 35px 0px 40px;
   font-family: Nunito;
   font-weight: 300;
   font-size: 20px;
 }
 
-.sign-in.form .sign-in.form-control {
+.sign-up.form .sign-up.form-control {
   border: none;
   outline: none;
   position: relative;
 }
 
-.sign-in.form .sign-in.form-control:not(:first-child) {
+.sign-up.form .sign-up.form-control:not(:first-child) {
   margin-top: 10px;
 }
 
 
-.sign-in.form .sign-in.form-control>input {
+.sign-up.form .sign-up.form-control>input {
   width: 100%;
   border: 2px solid #DBDBDB;
   border-radius: 16px;
@@ -59,39 +59,39 @@
   transition: all 0.2s ease-in-out;
 }
 
-.sign-in.form .sign-in.form-control>input:focus {
+.sign-up.form .sign-up.form-control>input:focus {
   border: 2px solid #3B3B3B;
   box-shadow: 0px 1px 7px rgba(0, 0, 0, .5);
 }
 
-.sign-in.form .sign-in.form-control>input:focus+.icon {
+.sign-up.form .sign-up.form-control>input:focus+.icon {
   color: #3B3B3B;
 }
 
-.sign-in.form .sign-in.form-control>input::placeholder {
+.sign-up.form .sign-up.form-control>input::placeholder {
   color: #DBDBDB;
 }
 
-.sign-in.form .sign-in.form-control.error>input {
+.sign-up.form .sign-up.form-control.error>input {
   border: 2px solid #fd2e12;
 
 }
 
-.sign-in.form .sign-in.form-control.error>input:focus {
+.sign-up.form .sign-up.form-control.error>input:focus {
   border: 2px solid #fd2e12;
   box-shadow: 0px 1px 7px rgba(255, 0, 0, .5);
 
 }
 
-.sign-in.form .sign-in.form-control.error>input:focus+.icon {
+.sign-up.form .sign-up.form-control.error>input:focus+.icon {
   color: #fd2e12;
 }
 
-.sign-in.form .sign-in.form-control.error>input::placeholder {
+.sign-up.form .sign-up.form-control.error>input::placeholder {
   color: #fd2e12;
 }
 
-.sign-in.form .sign-in.form-control>.icon {
+.sign-up.form .sign-up.form-control>.icon {
   position: absolute;
   top: 20px;
   left: 25px;
@@ -100,15 +100,15 @@
 
 }
 
-.sign-in.form .sign-in.form-control.error>.icon {
+.sign-up.form .sign-up.form-control.error>.icon {
   color: #fd2e12;
 }
 
-.sign-in.form .sign-in.form-control>.error-message {
+.sign-up.form .sign-up.form-control>.error-message {
   display: none;
 }
 
-.sign-in.form .sign-in.form-control.error>.error-message {
+.sign-up.form .sign-up.form-control.error>.error-message {
   display: block;
   color: #fd2e12;
   padding-top: 5px;
@@ -116,12 +116,12 @@
   font-size: 16px;
 }
 
-.sign-in.actions {
+.sign-up.actions {
   display: flex;
   flex-direction: column;
 }
 
-.sign-in.actions .sign-in.action {
+.sign-up.actions .sign-up.action {
   border: none;
   outline: none;
   cursor: pointer;
@@ -140,6 +140,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-.sign-in.actions .sign-in.action:hover {
+.sign-up.actions .sign-up.action:hover {
   background-color: #50c47e;
 }

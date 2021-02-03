@@ -40,6 +40,30 @@ const authReducer = (state = initialState, action: AuthActions): AuthState => {
         error: action.payload.error,
       }
 
+    case AuthActionTypes.CREATE_USER_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: undefined,
+      }
+
+    case AuthActionTypes.CREATE_USER_SUCCESS:
+      localStorage.setItem(LOGGED_USER_KEY, JSON.stringify(action.payload.user))
+
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: true,
+        loggedUser: action.payload.user,
+      }
+
+    case AuthActionTypes.CREATE_USER_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload.error,
+      }
+
     case AuthActionTypes.HIDE_ERROR:
       return {
         ...state,

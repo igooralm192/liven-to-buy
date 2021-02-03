@@ -26,6 +26,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-empty-function": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "prettier/prettier": "error",
     "no-use-before-define": "off",
