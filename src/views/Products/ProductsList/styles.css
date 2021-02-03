@@ -10,6 +10,7 @@
 .product.item {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin-right: 10px;
   margin-bottom: 20px;
   padding: 25px 20px 15px;
@@ -17,11 +18,13 @@
   border-radius: 16px;
   border: 2px solid #EFEFEF;
   background-color: white;
+
+  max-width: 250px;
 }
 
 .product.item .product.image {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
 }
 
@@ -34,6 +37,7 @@
 .product.item .product.detail .name {
   color: #3E3E3E;
   font-size: 16px;
+  /* max-width: 200px; */
 }
 
 .product.item .product.detail .price {
