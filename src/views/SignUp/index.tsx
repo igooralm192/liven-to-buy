@@ -17,7 +17,7 @@ import './styles.css'
 import Notification from '../../components/Notification'
 import VisitantLayout from '../../layout/Visitant'
 
-import { RegisterErrorsCode } from '../../api/auth'
+import { RegisterErrorsCode } from '../../api/auth/types'
 
 import { AppState } from '../../store'
 import { hideError } from '../../store/auth/actions'
