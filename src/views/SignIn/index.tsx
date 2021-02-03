@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaArrowLeft, FaEnvelope, FaLock } from 'react-icons/fa'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 import './styles.css'
 
@@ -20,18 +22,29 @@ const SignIn: React.FC = () => {
     (state: AppState) => state.auth,
   )
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { values, errors, handleChange, submitForm } = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email.').required('Required field.'),
+      password: Yup.string().required('Required field.'),
+    }),
+    onSubmit: ({ email, password }) => handleSubmitForm(email, password),
+    validateOnChange: false,
+  })
 
   const [open, setOpen] = useState(false)
   const [notificationTitle, setNotificationTitle] = useState('')
   const [notificationDescription, setNotificationDescription] = useState('')
 
-  const handleSubmit = useCallback(async () => {
+  function handleSubmitForm(email: string, password: string) {
     if (!email || !password) return
+    console.log(email, password)
 
     dispatch(authenticateUser(email, password))
-  }, [dispatch, email, password])
+  }
 
   useEffect(() => {
     if (!isAuthenticated) return
@@ -73,6 +86,8 @@ const SignIn: React.FC = () => {
     }
   }, [error])
 
+  console.log(errors)
+
   return (
     <VisitantLayout>
       <section className="sign-in container">
@@ -88,25 +103,31 @@ const SignIn: React.FC = () => {
         </div>
 
         <form className="sign-in form">
-          <fieldset className="sign-in form-control">
+          <fieldset
+            className={`sign-in form-control ${errors.email ? 'error' : ''}`}
+          >
             <input
+              name="email"
               type="text"
               placeholder="E-mail"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              value={values.email}
+              onChange={handleChange}
             />
             <FaEnvelope className="icon" />
-            <span className="error-message" />
+            <span className="error-message">{errors.email}</span>
           </fieldset>
-          <fieldset className="sign-in form-control">
+          <fieldset
+            className={`sign-in form-control ${errors.password ? 'error' : ''}`}
+          >
             <input
+              name="password"
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
+              value={values.password}
+              onChange={handleChange}
             />
             <FaLock className="icon" />
-            <span className="error-message" />
+            <span className="error-message">{errors.password}</span>
           </fieldset>
         </form>
 
@@ -115,7 +136,7 @@ const SignIn: React.FC = () => {
             <button
               type="button"
               className="sign-in action"
-              onClick={handleSubmit}
+              onClick={() => submitForm()}
               disabled={isFetching}
             >
               {isFetching ? `...` : `Sign in`}
