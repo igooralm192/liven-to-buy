@@ -8,7 +8,7 @@ import {
 } from './actions'
 import { AuthenticateUserThunkAction } from './types'
 
-import api from '../../services/api'
+import * as api from '../../api/auth'
 
 export const authenticateUser = (
   email: string,
