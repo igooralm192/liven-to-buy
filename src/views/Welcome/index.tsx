@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import './styles.css'
 
 import Logo from '../../assets/images/logo.svg'
-import VisitantLayout from '../../layout/Visitant'
 
 const Welcome: React.FC = () => {
   return (

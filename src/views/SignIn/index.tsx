@@ -8,7 +8,6 @@ import * as Yup from 'yup'
 import './styles.css'
 
 import Notification from '../../components/Notification'
-import VisitantLayout from '../../layout/Visitant'
 
 import { LoginErrorsCode } from '../../api/auth/types'
 
