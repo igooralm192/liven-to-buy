@@ -12,6 +12,7 @@ export const AuthActionTypes = {
   AUTHENTICATE_USER_REQUEST: 'AUTHENTICATE_USER_REQUEST',
   AUTHENTICATE_USER_SUCCESS: 'AUTHENTICATE_USER_SUCCESS',
   AUTHENTICATE_USER_FAILURE: 'AUTHENTICATE_USER_FAILURE',
+  HIDE_ERROR: 'HIDE_ERROR',
 } as const
 
 type AuthActionTypes = typeof AuthActionTypes[keyof typeof AuthActionTypes]
@@ -40,6 +41,10 @@ export interface AuthenticateUserFailureAction {
   }
 }
 
+export interface HideErrorAction {
+  type: typeof AuthActionTypes.HIDE_ERROR
+}
+
 export type AuthenticateUserThunkAction = ThunkAction<
   Promise<void>,
   AuthState,
@@ -51,3 +56,4 @@ export type AuthActions =
   | AuthenticateUserRequestAction
   | AuthenticateUserSuccessAction
   | AuthenticateUserFailureAction
+  | HideErrorAction

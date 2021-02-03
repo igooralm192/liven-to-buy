@@ -40,6 +40,12 @@ const authReducer = (state = initialState, action: AuthActions): AuthState => {
         error: action.payload.error,
       }
 
+    case AuthActionTypes.HIDE_ERROR:
+      return {
+        ...state,
+        error: undefined,
+      }
+
     default:
       return initialState
   }

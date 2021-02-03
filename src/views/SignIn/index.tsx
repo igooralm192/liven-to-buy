@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaArrowLeft, FaEnvelope, FaLock } from 'react-icons/fa'
@@ -11,7 +11,9 @@ import Notification from '../../components/Notification'
 import VisitantLayout from '../../layout/Visitant'
 
 import { AuthenticateUserByEmailErrorsCode } from '../../api/auth'
+
 import { AppState } from '../../store'
+import { hideError } from '../../store/auth/actions'
 import { authenticateUser } from '../../store/auth/thunks'
 
 const SignIn: React.FC = () => {
@@ -35,13 +37,21 @@ const SignIn: React.FC = () => {
     validateOnChange: false,
   })
 
-  const [open, setOpen] = useState(false)
+  const [notificationOpen, setNotificationOpen] = useState(false)
   const [notificationTitle, setNotificationTitle] = useState('')
   const [notificationDescription, setNotificationDescription] = useState('')
 
+  function closeNotification() {
+    dispatch(hideError())
+    setNotificationOpen(oldOpen => {
+      if (oldOpen) return false
+
+      return oldOpen
+    })
+  }
+
   function handleSubmitForm(email: string, password: string) {
     if (!email || !password) return
-    console.log(email, password)
 
     dispatch(authenticateUser(email, password))
   }
@@ -72,21 +82,15 @@ const SignIn: React.FC = () => {
         break
     }
 
-    setOpen(true)
+    setNotificationOpen(true)
 
-    const timeout = setTimeout(() => setOpen(false), 5000)
+    const timeout = setTimeout(() => closeNotification(), 5000)
 
     return () => {
       clearTimeout(timeout)
-      setOpen(oldOpen => {
-        if (oldOpen) return false
-
-        return oldOpen
-      })
+      closeNotification()
     }
   }, [error])
-
-  console.log(errors)
 
   return (
     <VisitantLayout>
@@ -145,10 +149,10 @@ const SignIn: React.FC = () => {
         </div>
 
         <Notification
-          open={open}
+          open={notificationOpen}
           title={notificationTitle}
           description={notificationDescription}
-          onClose={() => setOpen(false)}
+          onClose={closeNotification}
         />
       </section>
     </VisitantLayout>

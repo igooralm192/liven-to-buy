@@ -19,3 +19,9 @@ export const authenticateUserFailure = (error: string): AuthActions => {
     payload: { error },
   }
 }
+
+export const hideError = (): AuthActions => {
+  return {
+    type: AuthActionTypes.HIDE_ERROR,
+  }
+}
