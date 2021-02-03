@@ -1,4 +1,6 @@
-.sign-in.container {}
+.sign-in.container {
+  position: relative;
+}
 
 .sign-in.back :first-child {
   color: #A3A3A3;

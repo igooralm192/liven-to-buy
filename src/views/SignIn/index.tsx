@@ -5,7 +5,10 @@ import { FaArrowLeft, FaEnvelope, FaLock } from 'react-icons/fa'
 
 import './styles.css'
 
+import Notification from '../../components/Notification'
 import VisitantLayout from '../../layout/Visitant'
+
+import { AuthenticateUserByEmailErrorsCode } from '../../api/auth'
 import { AppState } from '../../store'
 import { authenticateUser } from '../../store/auth/thunks'
 
@@ -20,6 +23,10 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [open, setOpen] = useState(false)
+  const [notificationTitle, setNotificationTitle] = useState('')
+  const [notificationDescription, setNotificationDescription] = useState('')
+
   const handleSubmit = useCallback(async () => {
     if (!email || !password) return
 
@@ -31,6 +38,40 @@ const SignIn: React.FC = () => {
 
     history.push('/products')
   }, [isAuthenticated, history])
+
+  useEffect(() => {
+    if (!error) return () => {}
+
+    switch (error) {
+      case AuthenticateUserByEmailErrorsCode.INCORRECT_EMAIL:
+        setNotificationTitle('Incorrect e-mail')
+        setNotificationDescription('This user does not exists.')
+        break
+
+      case AuthenticateUserByEmailErrorsCode.INCORRECT_PASSWORD:
+        setNotificationTitle('Incorrect password')
+        setNotificationDescription(
+          'This password does not match with this user.',
+        )
+        break
+
+      default:
+        break
+    }
+
+    setOpen(true)
+
+    const timeout = setTimeout(() => setOpen(false), 5000)
+
+    return () => {
+      clearTimeout(timeout)
+      setOpen(oldOpen => {
+        if (oldOpen) return false
+
+        return oldOpen
+      })
+    }
+  }, [error])
 
   return (
     <VisitantLayout>
@@ -81,6 +122,13 @@ const SignIn: React.FC = () => {
             </button>
           </Link>
         </div>
+
+        <Notification
+          open={open}
+          title={notificationTitle}
+          description={notificationDescription}
+          onClose={() => setOpen(false)}
+        />
       </section>
     </VisitantLayout>
   )
