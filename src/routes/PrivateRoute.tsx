@@ -6,6 +6,7 @@ import {
   RouteProps,
   RouteComponentProps,
 } from 'react-router-dom'
+import UserLayout from '../layout/User'
 
 import { AppState } from '../store'
 
@@ -24,7 +25,9 @@ const PrivateRoute: React.FC<Props> = ({
       {...routeProps}
       render={props => {
         return isAuthenticated ? (
-          <Component {...props} />
+          <UserLayout>
+            <Component {...props} />
+          </UserLayout>
         ) : (
           <Redirect
             to={{

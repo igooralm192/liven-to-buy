@@ -21,8 +21,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 #root {
-  height: 100vh;
+  min-height: inherit;
+}
+
+.content {
+  width: 100%;
+  max-width: 1222px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
