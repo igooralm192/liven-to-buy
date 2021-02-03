@@ -7,19 +7,15 @@ import './styles.css'
 import ProductsList from './ProductsList'
 
 import { AppState } from '../../store'
-import { getProducts } from '../../store/products/thunks'
 import { Product } from '../../store/products/types'
+import { getProducts } from '../../store/products/thunks'
 import { addProduct } from '../../store/cart/actions'
 
 const Products: React.FC = () => {
   const dispatch = useDispatch()
 
-  const { byId: productsById } = useSelector(
-    (state: AppState) => state.products,
-  )
-  const { products: selectedProducts } = useSelector(
-    (state: AppState) => state.cart,
-  )
+  const productsById = useSelector((state: AppState) => state.products.byId)
+  // const selectedProducts = useSelector((state: AppState) => state.cart.products)
 
   const [products, setProducts] = useState<Product[]>([])
 
@@ -37,7 +33,7 @@ const Products: React.FC = () => {
     setProducts(keys.map(key => productsById[key]))
   }, [productsById])
 
-  console.log(selectedProducts)
+  // console.log(selectedProducts)
 
   return (
     <main id="products-container" className="content">
