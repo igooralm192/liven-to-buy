@@ -15,6 +15,12 @@ import {
 import CartItem from './CartItem'
 import CartCoupon from './CartCoupon'
 import CartCouponForm from './CartCouponForm'
+import CartPaymentMethodForm from './CartPaymentMethodForm'
+
+/*
+  TODO:
+  - [ ] Show message when cart is empty.
+*/
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch()
@@ -23,7 +29,7 @@ const Cart: React.FC = () => {
   const cartProducts = useSelector((state: AppState) => state.cart.products)
   const cartCoupon = useSelector((state: AppState) => state.cart.coupon)
 
-  const items = useMemo(() => {
+  const cartItems = useMemo(() => {
     return cartProducts.map(cartProduct => ({
       ...productsById[cartProduct.id],
       quantity: cartProduct.quantity,
@@ -34,22 +40,30 @@ const Cart: React.FC = () => {
     dispatch(addCoupon(coupon, 15))
   }
 
+  function handleAddPaymentMethod(
+    cardNumber: string,
+    cardExpireDate: Date,
+    cardCvv: string,
+  ) {
+    console.log(cardNumber, cardExpireDate, cardCvv)
+  }
+
   return (
     <main id="cart-container" className="content">
       <section className="cart items container">
         <h3 className="title">Your cart</h3>
 
         <ul className="cart items">
-          {items.map(item => (
+          {cartItems.map(cartItem => (
             <CartItem
-              key={item.id}
-              name={item.name}
-              imageUrl={item.imageUrl}
-              quantity={item.quantity}
-              price={item.price}
-              onIncrementQuantity={() => dispatch(incrementQuantity(item))}
-              onDecrementQuantity={() => dispatch(decrementQuantity(item))}
-              onRemoveItem={() => dispatch(removeProduct(item.id))}
+              key={cartItem.id}
+              name={cartItem.name}
+              imageUrl={cartItem.imageUrl}
+              quantity={cartItem.quantity}
+              price={cartItem.price}
+              onIncrementQuantity={() => dispatch(incrementQuantity(cartItem))}
+              onDecrementQuantity={() => dispatch(decrementQuantity(cartItem))}
+              onRemoveItem={() => dispatch(removeProduct(cartItem.id))}
             />
           ))}
         </ul>
@@ -70,6 +84,8 @@ const Cart: React.FC = () => {
 
       <section className="cart payment-method container">
         <h3 className="title">Add payment method</h3>
+
+        <CartPaymentMethodForm onAddPaymentMethod={handleAddPaymentMethod} />
       </section>
 
       <section className="cart total container">

@@ -23,7 +23,7 @@ const CartCoupon: React.FC<Props> = ({ coupon, onRemoveCoupon }) => {
         className="cart coupon action"
         onClick={onRemoveCoupon}
       >
-        Remover
+        Remove
       </button>
     </div>
   )

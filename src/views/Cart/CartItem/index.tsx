@@ -58,7 +58,7 @@ const CartItem: React.FC<Props> = ({
         </p>
       </div>
       <button type="button" className="remove action" onClick={onRemoveItem}>
-        Remover
+        Remove
       </button>
     </li>
   )
