@@ -1,0 +1,97 @@
+#purchase-container {
+  margin: 110px auto;
+  color: #3B3B3B;
+  font-family: Nunito;
+}
+
+#purchase-resume-container .title {
+  font-family: Quicksand;
+  font-weight: bold;
+  font-size: 30px;
+
+  margin-bottom: 20px;
+}
+
+#purchase-resume-container .description {
+  font-family: Quicksand;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+#purchase-resume-container .description .link {
+  /* margin: 0 5px; */
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+#purchase-resume-container .summary-text {
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#purchase-products {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+#purchase-resume {
+  padding: 25px 30px;
+  border-radius: 16px;
+  border: 2px solid #EFEFEF;
+  background-color: white;
+}
+
+.purchase-product,
+.purchase-coupon,
+.purchase-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.purchase-product .name,
+.purchase-coupon .name,
+.purchase-total .name {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.purchase-product .detail,
+.purchase-coupon .detail {
+  min-width: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.purchase-product .detail .total,
+.purchase-coupon .detail .total,
+.purchase-total .total {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+
+.purchase-total {
+  margin-bottom: 0;
+}
+
+.purchase-total .name,
+.purchase-total .total {
+  font-weight: bold;
+}
+
+.purchase-total .name {
+  font-size: 20px;
+}
+
+.purchase-total .total {
+  font-size: 24px;
+}

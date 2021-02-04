@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import useProducts from './useProducts'
@@ -7,13 +7,19 @@ import { AppState } from '../store'
 import { Product } from '../store/products/types'
 
 import { CartCoupon, CartPaymentMethod } from '../store/cart/types'
-import { loadCartProducts } from '../store/cart/actions'
+import {
+  loadCartProducts,
+  incrementCartProductQuantity,
+  decrementCartProductQuantity,
+} from '../store/cart/actions'
 
 const useCart = (): {
   products: Product[]
   isEmpty: boolean
   coupon?: CartCoupon
   paymentMethod?: CartPaymentMethod
+  incrementQuantity: (product: Product) => void
+  decrementQuantity: (product: Product) => void
 } => {
   const dispatch = useDispatch()
 
@@ -34,6 +40,26 @@ const useCart = (): {
     cartProducts,
   ])
 
+  const incrementQuantity = useCallback(
+    (cartProduct: Product) => {
+      const product = productsById[cartProduct.id]
+
+      if (cartProduct.quantity === product.quantity) return
+
+      dispatch(incrementCartProductQuantity(cartProduct))
+    },
+    [dispatch, productsById],
+  )
+
+  const decrementQuantity = useCallback(
+    (cartProduct: Product) => {
+      if (cartProduct.quantity === 1) return
+
+      dispatch(decrementCartProductQuantity(cartProduct))
+    },
+    [dispatch],
+  )
+
   useEffect(() => {
     if (Object.keys(productsById).length === 0) return
 
@@ -45,6 +71,8 @@ const useCart = (): {
     isEmpty: !haveCartProducts,
     coupon,
     paymentMethod,
+    incrementQuantity,
+    decrementQuantity,
   }
 }
 

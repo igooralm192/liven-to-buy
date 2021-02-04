@@ -13,13 +13,12 @@ import useCart from '../../hooks/useCart'
 
 import {
   removeCartProduct,
-  incrementCartProductQuantity,
-  decrementCartProductQuantity,
   addCartCoupon,
   removeCartCoupon,
   addCartPaymentMethod,
   removeCartPaymentMethod,
 } from '../../store/cart/actions'
+
 import formatNumberToBRL from '../../utils/formatNumberToBRL'
 
 /*
@@ -31,7 +30,14 @@ import formatNumberToBRL from '../../utils/formatNumberToBRL'
 const Cart: React.FC = () => {
   const dispatch = useDispatch()
 
-  const { products, isEmpty, coupon, paymentMethod } = useCart()
+  const {
+    products,
+    isEmpty,
+    coupon,
+    paymentMethod,
+    incrementQuantity,
+    decrementQuantity,
+  } = useCart()
 
   const cartTotalValue = useMemo(() => {
     return products.reduce(
@@ -84,6 +90,10 @@ const Cart: React.FC = () => {
     )
   }
 
+  function handleCheckout() {
+    console.log('CHECKOUT')
+  }
+
   return (
     <main id="cart-container" className="content">
       <section className="cart items container">
@@ -98,12 +108,8 @@ const Cart: React.FC = () => {
             {products.map(product => (
               <CartItem
                 key={product.id}
-                onIncrementQuantity={() =>
-                  dispatch(incrementCartProductQuantity(product))
-                }
-                onDecrementQuantity={() =>
-                  dispatch(decrementCartProductQuantity(product))
-                }
+                onIncrementQuantity={() => incrementQuantity(product)}
+                onDecrementQuantity={() => decrementQuantity(product)}
                 onRemoveItem={() => dispatch(removeCartProduct(product.id))}
                 {...product}
               />
@@ -164,7 +170,11 @@ const Cart: React.FC = () => {
           </section>
 
           <div className="cart finish container">
-            <button type="button" className="cart finish action">
+            <button
+              type="button"
+              className="cart finish action"
+              onClick={handleCheckout}
+            >
               Finish
             </button>
           </div>
