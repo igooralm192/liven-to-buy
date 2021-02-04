@@ -1,7 +1,15 @@
-import React, { useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 
 import './styles.css'
+
+import CartItem from './CartItem'
+import CartCoupon from './CartCoupon'
+import CartCouponForm from './CartCouponForm'
+import CartPaymentMethod from './CartPaymentMethod'
+import CartPaymentMethodForm from './CartPaymentMethodForm'
+
+import useCart from '../../hooks/useCart'
 
 import {
   removeCartProduct,
@@ -12,23 +20,48 @@ import {
   addCartPaymentMethod,
   removeCartPaymentMethod,
 } from '../../store/cart/actions'
-
-import CartItem from './CartItem'
-import CartCoupon from './CartCoupon'
-import CartCouponForm from './CartCouponForm'
-import CartPaymentMethod from './CartPaymentMethod'
-import CartPaymentMethodForm from './CartPaymentMethodForm'
-import useCart from '../../hooks/useCart'
+import formatNumberToBRL from '../../utils/formatNumberToBRL'
 
 /*
   TODO:
   - [x] Show message when cart is empty.
+  - [ ] Create array of valid coupons.
 */
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch()
 
   const { products, isEmpty, coupon, paymentMethod } = useCart()
+
+  const cartTotalValue = useMemo(() => {
+    return products.reduce(
+      (total, product) => total + product.quantity * product.price,
+      0,
+    )
+  }, [products])
+
+  const couponDiscountValue = useMemo(() => {
+    return coupon ? (cartTotalValue * coupon.discount) / 100 : 0
+  }, [coupon, cartTotalValue])
+
+  const cartFinalValue = useMemo(() => {
+    return cartTotalValue - couponDiscountValue
+  }, [cartTotalValue, couponDiscountValue])
+
+  const cartTotalFormattedValue = useMemo(
+    () => formatNumberToBRL(cartTotalValue),
+    [cartTotalValue],
+  )
+
+  const couponDiscountFormattedValue = useMemo(
+    () => formatNumberToBRL(couponDiscountValue),
+    [couponDiscountValue],
+  )
+
+  const cartFinalFormattedValue = useMemo(
+    () => formatNumberToBRL(cartFinalValue),
+    [cartFinalValue],
+  )
 
   function handleAddCoupon(newCoupon: string) {
     dispatch(addCartCoupon(newCoupon, 15))
@@ -111,9 +144,30 @@ const Cart: React.FC = () => {
             )}
           </section>
 
-          <section className="cart total container">
+          <section className="cart total-value container">
             <h3 className="title">Total</h3>
+
+            <div id="cart-gross-value" className="info">
+              <h4 className="label">Cart total</h4>
+              <p className="value">{cartTotalFormattedValue}</p>
+            </div>
+
+            <div id="cart-discount-value" className="info">
+              <h4 className="label">Coupon discount</h4>
+              <p className="value">{`- ${couponDiscountFormattedValue}`}</p>
+            </div>
+
+            <div id="cart-net-value" className="info">
+              <h4 className="label">Total</h4>
+              <p className="value">{cartFinalFormattedValue}</p>
+            </div>
           </section>
+
+          <div className="cart finish container">
+            <button type="button" className="cart finish action">
+              Finish
+            </button>
+          </div>
         </>
       )}
     </main>
