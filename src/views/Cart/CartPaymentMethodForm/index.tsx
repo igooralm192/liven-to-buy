@@ -4,7 +4,7 @@ import { MdDateRange } from 'react-icons/md'
 import { BiBarcodeReader } from 'react-icons/bi'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { parse } from 'date-fns'
+import { isAfter, isDate, parse } from 'date-fns'
 
 import TextMask from 'react-text-mask'
 
@@ -13,7 +13,7 @@ import './styles.css'
 interface Props {
   onAddPaymentMethod: (
     cardNumber: string,
-    cardExpireDate: Date,
+    cardExpireDate: string,
     cardCvv: string,
   ) => void
 }
@@ -50,28 +50,30 @@ const CartPaymentMethodForm: React.FC<Props> = ({ onAddPaymentMethod }) => {
     validationSchema: Yup.object({
       number: Yup.string()
         .required('Required field.')
-        .min(19, 'Have min 19 digits.'),
+        .min(19, 'Invalid card number.'),
       date: Yup.date()
-        .transform((_, originalValue) =>
-          parse(originalValue, 'MM/yy', new Date()),
-        )
-        .typeError('Invalid date.')
+        .transform((_, originalValue: string) => {
+          const parsedDate = parse(originalValue, 'MM/yy', new Date())
+
+          if (isDate(parsedDate) && isAfter(parsedDate, new Date()))
+            return parsedDate
+
+          return 'invalid'
+        })
+        .typeError('Invalid expire date.')
         .required('Required field.'),
-      cvv: Yup.string()
-        .required('Required field.')
-        .min(3, 'Have min 3 digits.'),
+      cvv: Yup.string().required('Required field.').min(3, 'Invalid CVV.'),
     }),
     onSubmit: ({ number, date, cvv }) => handleSubmitForm(number, date, cvv),
     validateOnChange: false,
   })
 
   function handleSubmitForm(number: string, date: string, cvv: string) {
-    console.log(number, date, cvv)
-    // onAddPaymentMethod(number, new Date(date), cvv)
+    onAddPaymentMethod(number, date, cvv)
   }
 
   return (
-    <form className="cart payment-method-form">
+    <form className="cart payment-method-form" autoComplete="off">
       <div className="cart payment-method-form inputs">
         <fieldset className={`form-control ${errors.number ? 'error' : ''}`}>
           <TextMask
@@ -79,6 +81,7 @@ const CartPaymentMethodForm: React.FC<Props> = ({ onAddPaymentMethod }) => {
             type="text"
             mask={cardNumberMask}
             guide={false}
+            autoComplete="off"
             placeholder="Card number"
             value={values.number}
             onChange={handleChange}

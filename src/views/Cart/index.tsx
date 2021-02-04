@@ -10,12 +10,15 @@ import {
   removeProduct,
   addCoupon,
   removeCoupon,
+  addPaymentMethod,
+  removePaymentMethod,
 } from '../../store/cart/actions'
 
 import CartItem from './CartItem'
 import CartCoupon from './CartCoupon'
 import CartCouponForm from './CartCouponForm'
 import CartPaymentMethodForm from './CartPaymentMethodForm'
+import CartPaymentMethod from './CartPaymentMethod'
 
 /*
   TODO:
@@ -28,6 +31,9 @@ const Cart: React.FC = () => {
   const productsById = useSelector((state: AppState) => state.products.byId)
   const cartProducts = useSelector((state: AppState) => state.cart.products)
   const cartCoupon = useSelector((state: AppState) => state.cart.coupon)
+  const cartPaymentMethod = useSelector(
+    (state: AppState) => state.cart.paymentMethod,
+  )
 
   const cartItems = useMemo(() => {
     return cartProducts.map(cartProduct => ({
@@ -42,10 +48,15 @@ const Cart: React.FC = () => {
 
   function handleAddPaymentMethod(
     cardNumber: string,
-    cardExpireDate: Date,
+    cardExpireDate: string,
     cardCvv: string,
   ) {
-    console.log(cardNumber, cardExpireDate, cardCvv)
+    const last4Digits = cardNumber.split('-')[3]
+    const [expireMonth, expireYear] = cardExpireDate.split('/')
+
+    dispatch(
+      addPaymentMethod(last4Digits, Number(expireMonth), Number(expireYear)),
+    )
   }
 
   return (
@@ -82,10 +93,17 @@ const Cart: React.FC = () => {
         )}
       </section>
 
-      <section className="cart payment-method container">
+      <section className="cart payment-methods container">
         <h3 className="title">Add payment method</h3>
 
-        <CartPaymentMethodForm onAddPaymentMethod={handleAddPaymentMethod} />
+        {cartPaymentMethod ? (
+          <CartPaymentMethod
+            paymentMethod={cartPaymentMethod}
+            onRemovePaymentMethod={() => dispatch(removePaymentMethod())}
+          />
+        ) : (
+          <CartPaymentMethodForm onAddPaymentMethod={handleAddPaymentMethod} />
+        )}
       </section>
 
       <section className="cart total container">

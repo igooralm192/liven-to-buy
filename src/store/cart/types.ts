@@ -9,6 +9,9 @@ export const CartActionTypes = {
   ADD_COUPON: 'ADD_COUPON',
   REMOVE_COUPON: 'REMOVE_COUPON',
 
+  ADD_PAYMENT_METHOD: 'ADD_PAYMENT_METHOD',
+  REMOVE_PAYMENT_METHOD: 'REMOVE_PAYMENT_METHOD',
+
   HIDE_ERROR: 'HIDE_ERROR',
 } as const
 
@@ -24,12 +27,19 @@ export interface CartCoupon {
   discount: number
 }
 
+export interface CartPaymentMethod {
+  last4Digits: string
+  expireMonth: number
+  expireYear: number
+}
+
 export interface CartState {
   isFetching: boolean
   error?: string
 
   products: CartProduct[]
   coupon?: CartCoupon
+  paymentMethod?: CartPaymentMethod
 }
 
 export interface CartRequestAction {
@@ -78,6 +88,19 @@ export interface RemoveCouponAction {
   type: typeof CartActionTypes.REMOVE_COUPON
 }
 
+export interface AddPaymentMethodAction {
+  type: typeof CartActionTypes.ADD_PAYMENT_METHOD
+  payload: {
+    last4Digits: string
+    expireMonth: number
+    expireYear: number
+  }
+}
+
+export interface RemovePaymentMethodAction {
+  type: typeof CartActionTypes.REMOVE_PAYMENT_METHOD
+}
+
 export interface HideErrorAction {
   type: typeof CartActionTypes.HIDE_ERROR
 }
@@ -97,4 +120,6 @@ export type CartActions =
   | UpdateQuantityAction
   | AddCouponAction
   | RemoveCouponAction
+  | AddPaymentMethodAction
+  | RemovePaymentMethodAction
   | HideErrorAction

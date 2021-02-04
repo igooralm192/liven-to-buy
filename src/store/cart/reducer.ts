@@ -88,6 +88,18 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
         coupon: undefined,
       }
 
+    case CartActionTypes.ADD_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: { ...action.payload },
+      }
+
+    case CartActionTypes.REMOVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: undefined,
+      }
+
     case CartActionTypes.HIDE_ERROR:
       return {
         ...state,

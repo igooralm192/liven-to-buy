@@ -55,6 +55,23 @@ export const removeCoupon = (): CartActions => {
   }
 }
 
+export const addPaymentMethod = (
+  last4Digits: string,
+  expireMonth: number,
+  expireYear: number,
+): CartActions => {
+  return {
+    type: CartActionTypes.ADD_PAYMENT_METHOD,
+    payload: { last4Digits, expireMonth, expireYear },
+  }
+}
+
+export const removePaymentMethod = (): CartActions => {
+  return {
+    type: CartActionTypes.REMOVE_PAYMENT_METHOD,
+  }
+}
+
 export const hideError = (): CartActions => {
   return {
     type: CartActionTypes.HIDE_ERROR,
