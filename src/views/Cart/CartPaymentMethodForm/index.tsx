@@ -1,10 +1,12 @@
 import React from 'react'
+
 import { TiSortNumerically } from 'react-icons/ti'
 import { MdDateRange } from 'react-icons/md'
 import { BiBarcodeReader } from 'react-icons/bi'
+
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
 import { isAfter, isDate, parse } from 'date-fns'
+import * as Yup from 'yup'
 
 import TextMask from 'react-text-mask'
 
@@ -97,6 +99,7 @@ const CartPaymentMethodForm: React.FC<Props> = ({ onAddPaymentMethod }) => {
             mask={[/[0-1]/, /[0-9]/, '/', /\d/, /\d/]}
             guide={false}
             placeholder="Expire date"
+            autoComplete="new-password"
             value={values.date}
             onChange={handleChange}
           />

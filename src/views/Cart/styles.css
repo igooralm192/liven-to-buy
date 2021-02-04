@@ -19,6 +19,7 @@
   margin-bottom: 20px;
 }
 
+
 .cart.items {
   list-style: none;
 
@@ -26,4 +27,8 @@
   flex-direction: column;
 }
 
+.cart.items .empty {
+  font-family: Nunito;
+  font-size: 18px;
+}
 

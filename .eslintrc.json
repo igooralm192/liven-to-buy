@@ -28,6 +28,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
+    "react/jsx-curly-newline": "off",
     "prettier/prettier": "error",
     "no-use-before-define": "off",
     "react-hooks/rules-of-hooks": "error",

@@ -22,7 +22,7 @@ import CartPaymentMethod from './CartPaymentMethod'
 
 /*
   TODO:
-  - [ ] Show message when cart is empty.
+  - [x] Show message when cart is empty.
 */
 
 const Cart: React.FC = () => {
@@ -41,6 +41,8 @@ const Cart: React.FC = () => {
       quantity: cartProduct.quantity,
     }))
   }, [cartProducts, productsById])
+
+  const haveCartItems = useMemo(() => cartItems.length > 0, [cartItems])
 
   function handleAddCoupon(coupon: string) {
     dispatch(addCoupon(coupon, 15))
@@ -64,51 +66,67 @@ const Cart: React.FC = () => {
       <section className="cart items container">
         <h3 className="title">Your cart</h3>
 
-        <ul className="cart items">
-          {cartItems.map(cartItem => (
-            <CartItem
-              key={cartItem.id}
-              name={cartItem.name}
-              imageUrl={cartItem.imageUrl}
-              quantity={cartItem.quantity}
-              price={cartItem.price}
-              onIncrementQuantity={() => dispatch(incrementQuantity(cartItem))}
-              onDecrementQuantity={() => dispatch(decrementQuantity(cartItem))}
-              onRemoveItem={() => dispatch(removeProduct(cartItem.id))}
-            />
-          ))}
-        </ul>
-      </section>
-
-      <section className="cart coupons container">
-        <h3 className="title">Add coupon</h3>
-
-        {cartCoupon ? (
-          <CartCoupon
-            coupon={cartCoupon}
-            onRemoveCoupon={() => dispatch(removeCoupon())}
-          />
+        {!haveCartItems ? (
+          <p className="empty">
+            You have not yet added any products to your cart.
+          </p>
         ) : (
-          <CartCouponForm onAddCoupon={handleAddCoupon} />
+          <ul className="cart items">
+            {cartItems.map(cartItem => (
+              <CartItem
+                key={cartItem.id}
+                name={cartItem.name}
+                imageUrl={cartItem.imageUrl}
+                quantity={cartItem.quantity}
+                price={cartItem.price}
+                onIncrementQuantity={() =>
+                  dispatch(incrementQuantity(cartItem))
+                }
+                onDecrementQuantity={() =>
+                  dispatch(decrementQuantity(cartItem))
+                }
+                onRemoveItem={() => dispatch(removeProduct(cartItem.id))}
+              />
+            ))}
+          </ul>
         )}
       </section>
 
-      <section className="cart payment-methods container">
-        <h3 className="title">Add payment method</h3>
+      {haveCartItems && (
+        <>
+          <section className="cart coupons container">
+            <h3 className="title">Add coupon</h3>
 
-        {cartPaymentMethod ? (
-          <CartPaymentMethod
-            paymentMethod={cartPaymentMethod}
-            onRemovePaymentMethod={() => dispatch(removePaymentMethod())}
-          />
-        ) : (
-          <CartPaymentMethodForm onAddPaymentMethod={handleAddPaymentMethod} />
-        )}
-      </section>
+            {cartCoupon ? (
+              <CartCoupon
+                coupon={cartCoupon}
+                onRemoveCoupon={() => dispatch(removeCoupon())}
+              />
+            ) : (
+              <CartCouponForm onAddCoupon={handleAddCoupon} />
+            )}
+          </section>
 
-      <section className="cart total container">
-        <h3 className="title">Total</h3>
-      </section>
+          <section className="cart payment-methods container">
+            <h3 className="title">Add payment method</h3>
+
+            {cartPaymentMethod ? (
+              <CartPaymentMethod
+                paymentMethod={cartPaymentMethod}
+                onRemovePaymentMethod={() => dispatch(removePaymentMethod())}
+              />
+            ) : (
+              <CartPaymentMethodForm
+                onAddPaymentMethod={handleAddPaymentMethod}
+              />
+            )}
+          </section>
+
+          <section className="cart total container">
+            <h3 className="title">Total</h3>
+          </section>
+        </>
+      )}
     </main>
   )
 }

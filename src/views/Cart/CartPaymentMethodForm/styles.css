@@ -13,18 +13,18 @@
   flex-direction: column;
 }
 
-.form-control {
+.cart.payment-method-form .form-control {
   border: none;
   outline: none;
   position: relative;
 }
 
-.form-control:not(:first-child) {
+.cart.payment-method-form .form-control:not(:first-child) {
   margin-top: 10px;
 }
 
 
-.form-control>input {
+.cart.payment-method-form .form-control>input {
   width: 100%;
   border: 2px solid #DBDBDB;
   border-radius: 16px;
@@ -37,39 +37,39 @@
   transition: all 0.2s ease-in-out;
 }
 
-.form-control>input:focus {
+.cart.payment-method-form .form-control>input:focus {
   border: 2px solid #3B3B3B;
   box-shadow: 0px 1px 7px rgba(0, 0, 0, .5);
 }
 
-.form-control>input:focus+.icon {
+.cart.payment-method-form .form-control>input:focus+.icon {
   color: #3B3B3B;
 }
 
-.form-control>input::placeholder {
+.cart.payment-method-form .form-control>input::placeholder {
   color: #DBDBDB;
 }
 
-.form-control.error>input {
+.cart.payment-method-form .form-control.error>input {
   border: 2px solid #fd2e12;
 
 }
 
-.form-control.error>input:focus {
+.cart.payment-method-form .form-control.error>input:focus {
   border: 2px solid #fd2e12;
   box-shadow: 0px 1px 7px rgba(255, 0, 0, .5);
 
 }
 
-.form-control.error>input:focus+.icon {
+.cart.payment-method-form .form-control.error>input:focus+.icon {
   color: #fd2e12;
 }
 
-.form-control.error>input::placeholder {
+.cart.payment-method-form .form-control.error>input::placeholder {
   color: #fd2e12;
 }
 
-.form-control>.icon {
+.cart.payment-method-form .form-control>.icon {
   position: absolute;
   top: 15px;
   left: 25px;
@@ -78,15 +78,15 @@
 
 }
 
-.form-control.error>.icon {
+.cart.payment-method-form .form-control.error>.icon {
   color: #fd2e12;
 }
 
-.form-control>.error-message {
+.cart.payment-method-form .form-control>.error-message {
   display: none;
 }
 
-.form-control.error>.error-message {
+.cart.payment-method-form .form-control.error>.error-message {
   display: block;
   color: #fd2e12;
   padding-top: 5px;
