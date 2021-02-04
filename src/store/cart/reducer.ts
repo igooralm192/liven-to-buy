@@ -73,6 +73,21 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
       }
     }
 
+    case CartActionTypes.ADD_COUPON:
+      return {
+        ...state,
+        coupon: {
+          code: action.payload.coupon,
+          discount: action.payload.discount,
+        },
+      }
+
+    case CartActionTypes.REMOVE_COUPON:
+      return {
+        ...state,
+        coupon: undefined,
+      }
+
     case CartActionTypes.HIDE_ERROR:
       return {
         ...state,

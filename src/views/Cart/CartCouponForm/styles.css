@@ -1,0 +1,119 @@
+.cart.coupon-form {
+  font-family: Nunito;
+  font-weight: 300;
+  font-size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-control {
+  border: none;
+  outline: none;
+  position: relative;
+}
+
+.form-control:not(:first-child) {
+  margin-top: 10px;
+}
+
+
+.form-control>input {
+  width: 100%;
+  border: 2px solid #DBDBDB;
+  border-radius: 16px;
+  padding: 10px 30px 10px 60px;
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 20px;
+  outline: none;
+  color: #3B3B3B;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control>input:focus {
+  border: 2px solid #3B3B3B;
+  box-shadow: 0px 1px 7px rgba(0, 0, 0, .5);
+}
+
+.form-control>input:focus+.icon {
+  color: #3B3B3B;
+}
+
+.form-control>input::placeholder {
+  color: #DBDBDB;
+}
+
+.form-control.error>input {
+  border: 2px solid #fd2e12;
+
+}
+
+.form-control.error>input:focus {
+  border: 2px solid #fd2e12;
+  box-shadow: 0px 1px 7px rgba(255, 0, 0, .5);
+
+}
+
+.form-control.error>input:focus+.icon {
+  color: #fd2e12;
+}
+
+.form-control.error>input::placeholder {
+  color: #fd2e12;
+}
+
+.form-control>.icon {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  color: #DBDBDB;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.form-control.error>.icon {
+  color: #fd2e12;
+}
+
+.form-control>.error-message {
+  display: none;
+}
+
+.form-control.error>.error-message {
+  display: block;
+  color: #fd2e12;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 16px;
+}
+
+.cart.coupon-form.action {
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  width: 100%;
+  max-width: 200px;
+  margin-left: 15px;
+  padding: 10px 20px;
+  border-radius: 16px;
+
+  display: flex;
+  justify-content: center;
+
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+
+  color: white;
+  background-color: var(--primary-color);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.cart.coupon-form.action:hover {
+  background-color: #50c47e;
+}

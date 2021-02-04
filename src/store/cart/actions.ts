@@ -42,6 +42,19 @@ export const incrementQuantity = (product: CartProduct): CartActions =>
 export const decrementQuantity = (product: CartProduct): CartActions =>
   updateQuantity(product.id, product.quantity - 1)
 
+export const addCoupon = (coupon: string, discount: number): CartActions => {
+  return {
+    type: CartActionTypes.ADD_COUPON,
+    payload: { coupon, discount },
+  }
+}
+
+export const removeCoupon = (): CartActions => {
+  return {
+    type: CartActionTypes.REMOVE_COUPON,
+  }
+}
+
 export const hideError = (): CartActions => {
   return {
     type: CartActionTypes.HIDE_ERROR,
