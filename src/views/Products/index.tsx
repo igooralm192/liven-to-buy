@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa'
 
 import './styles.css'
 
+import { Link } from 'react-router-dom'
 import ProductsList from './ProductsList'
 
 import { AppState } from '../../store'
@@ -41,9 +42,11 @@ const Products: React.FC = () => {
 
       <ProductsList products={products} onAddProduct={handleAddProduct} />
 
-      <button type="button" className="products cart btn">
-        <FaShoppingCart />
-      </button>
+      <Link to="/cart">
+        <button type="button" className="products cart btn">
+          <FaShoppingCart />
+        </button>
+      </Link>
     </main>
   )
 }

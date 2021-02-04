@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 import './styles.css'
 
@@ -21,17 +22,21 @@ const UserLayout: React.FC = ({ children }) => {
     <div id="user-container">
       <header id="user-header">
         <div className="user content">
-          <img className="user logo" src={Logo} alt="Logo" />
+          <Link to="/products">
+            <img className="user logo" src={Logo} alt="Logo" />
+          </Link>
 
           <ul className="user actions">
             <li className="user action">
               <FaUser />
             </li>
             <li className="user action cart">
-              <FaShoppingCart />
-              {productAmount > 0 && (
-                <span className="amount">{productAmount}</span>
-              )}
+              <Link to="/cart">
+                <FaShoppingCart />
+                {productAmount > 0 && (
+                  <span className="amount">{productAmount}</span>
+                )}
+              </Link>
             </li>
           </ul>
         </div>
