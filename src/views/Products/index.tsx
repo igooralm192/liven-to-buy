@@ -10,7 +10,7 @@ import ProductsList from './ProductsList'
 import { AppState } from '../../store'
 import { Product } from '../../store/products/types'
 import { getProducts } from '../../store/products/thunks'
-import { addProduct } from '../../store/cart/actions'
+import { addCartProduct } from '../../store/cart/actions'
 
 const Products: React.FC = () => {
   const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([])
 
   function handleAddProduct(productId: string) {
-    dispatch(addProduct(productId))
+    dispatch(addCartProduct(productId))
   }
 
   useEffect(() => {

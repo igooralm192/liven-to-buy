@@ -1,17 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import './styles.css'
 
 import { AppState } from '../../store'
 import {
-  incrementQuantity,
-  decrementQuantity,
-  removeProduct,
-  addCoupon,
-  removeCoupon,
-  addPaymentMethod,
-  removePaymentMethod,
+  loadCartProducts,
+  removeCartProduct,
+  incrementCartProductQuantity,
+  decrementCartProductQuantity,
+  addCartCoupon,
+  removeCartCoupon,
+  addCartPaymentMethod,
+  removeCartPaymentMethod,
 } from '../../store/cart/actions'
 
 import CartItem from './CartItem'
@@ -45,7 +46,7 @@ const Cart: React.FC = () => {
   const haveCartItems = useMemo(() => cartItems.length > 0, [cartItems])
 
   function handleAddCoupon(coupon: string) {
-    dispatch(addCoupon(coupon, 15))
+    dispatch(addCartCoupon(coupon, 15))
   }
 
   function handleAddPaymentMethod(
@@ -57,9 +58,22 @@ const Cart: React.FC = () => {
     const [expireMonth, expireYear] = cardExpireDate.split('/')
 
     dispatch(
-      addPaymentMethod(last4Digits, Number(expireMonth), Number(expireYear)),
+      addCartPaymentMethod(
+        last4Digits,
+        Number(expireMonth),
+        Number(expireYear),
+      ),
     )
   }
+
+  useEffect(() => {
+    console.log('OPA', productsById, haveCartItems)
+    // Verificar se existem produtos no store
+    if (Object.keys(productsById).length === 0) return
+
+    // Se sim, carregar carrinho da sessão caso carrinho esteja vazio
+    if (!haveCartItems) dispatch(loadCartProducts())
+  }, [productsById])
 
   return (
     <main id="cart-container" className="content">
@@ -80,12 +94,12 @@ const Cart: React.FC = () => {
                 quantity={cartItem.quantity}
                 price={cartItem.price}
                 onIncrementQuantity={() =>
-                  dispatch(incrementQuantity(cartItem))
+                  dispatch(incrementCartProductQuantity(cartItem))
                 }
                 onDecrementQuantity={() =>
-                  dispatch(decrementQuantity(cartItem))
+                  dispatch(decrementCartProductQuantity(cartItem))
                 }
-                onRemoveItem={() => dispatch(removeProduct(cartItem.id))}
+                onRemoveItem={() => dispatch(removeCartProduct(cartItem.id))}
               />
             ))}
           </ul>
@@ -100,7 +114,7 @@ const Cart: React.FC = () => {
             {cartCoupon ? (
               <CartCoupon
                 coupon={cartCoupon}
-                onRemoveCoupon={() => dispatch(removeCoupon())}
+                onRemoveCoupon={() => dispatch(removeCartCoupon())}
               />
             ) : (
               <CartCouponForm onAddCoupon={handleAddCoupon} />
@@ -113,7 +127,9 @@ const Cart: React.FC = () => {
             {cartPaymentMethod ? (
               <CartPaymentMethod
                 paymentMethod={cartPaymentMethod}
-                onRemovePaymentMethod={() => dispatch(removePaymentMethod())}
+                onRemovePaymentMethod={() =>
+                  dispatch(removeCartPaymentMethod())
+                }
               />
             ) : (
               <CartPaymentMethodForm

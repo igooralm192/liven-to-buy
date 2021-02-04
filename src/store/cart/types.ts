@@ -1,18 +1,19 @@
 export const CartActionTypes = {
   CART_REQUEST: 'CART_REQUEST',
   CART_FAILURE: 'CART_FAILURE',
+  CART_HIDE_ERROR: 'CART_HIDE_ERROR',
 
-  ADD_PRODUCT: 'ADD_PRODUCT',
-  REMOVE_PRODUCT: 'REMOVE_PRODUCT',
-  UPDATE_QUANTITY: 'UPDATE_QUANTITY',
+  LOAD_CART_PRODUCTS: 'LOAD_CART_PRODUCTS',
 
-  ADD_COUPON: 'ADD_COUPON',
-  REMOVE_COUPON: 'REMOVE_COUPON',
+  ADD_CART_PRODUCT: 'ADD_CART_PRODUCT',
+  REMOVE_CART_PRODUCT: 'REMOVE_CART_PRODUCT',
+  UPDATE_CART_PRODUCT_QUANTITY: 'UPDATE_CART_PRODUCT_QUANTITY',
 
-  ADD_PAYMENT_METHOD: 'ADD_PAYMENT_METHOD',
-  REMOVE_PAYMENT_METHOD: 'REMOVE_PAYMENT_METHOD',
+  ADD_CART_COUPON: 'ADD_CART_COUPON',
+  REMOVE_CART_COUPON: 'REMOVE_CART_COUPON',
 
-  HIDE_ERROR: 'HIDE_ERROR',
+  ADD_CART_PAYMENT_METHOD: 'ADD_CART_PAYMENT_METHOD',
+  REMOVE_CART_PAYMENT_METHOD: 'REMOVE_CART_PAYMENT_METHOD',
 } as const
 
 type CartActionTypes = typeof CartActionTypes[keyof typeof CartActionTypes]
@@ -53,43 +54,51 @@ export interface CartFailureAction {
   }
 }
 
-export interface AddProductAction {
-  type: typeof CartActionTypes.ADD_PRODUCT
+export interface CartHideErrorAction {
+  type: typeof CartActionTypes.CART_HIDE_ERROR
+}
+
+export interface LoadCartProductsAction {
+  type: typeof CartActionTypes.LOAD_CART_PRODUCTS
+}
+
+export interface AddCartProductAction {
+  type: typeof CartActionTypes.ADD_CART_PRODUCT
   payload: {
     productId: string
     quantity?: number
   }
 }
 
-export interface RemoveProductAction {
-  type: typeof CartActionTypes.REMOVE_PRODUCT
+export interface RemoveCartProductAction {
+  type: typeof CartActionTypes.REMOVE_CART_PRODUCT
   payload: {
     productId: string
   }
 }
 
-export interface UpdateQuantityAction {
-  type: typeof CartActionTypes.UPDATE_QUANTITY
+export interface UpdateCartProductQuantityAction {
+  type: typeof CartActionTypes.UPDATE_CART_PRODUCT_QUANTITY
   payload: {
     productId: string
     quantity: number
   }
 }
 
-export interface AddCouponAction {
-  type: typeof CartActionTypes.ADD_COUPON
+export interface AddCartCouponAction {
+  type: typeof CartActionTypes.ADD_CART_COUPON
   payload: {
     coupon: string
     discount: number
   }
 }
 
-export interface RemoveCouponAction {
-  type: typeof CartActionTypes.REMOVE_COUPON
+export interface RemoveCartCouponAction {
+  type: typeof CartActionTypes.REMOVE_CART_COUPON
 }
 
-export interface AddPaymentMethodAction {
-  type: typeof CartActionTypes.ADD_PAYMENT_METHOD
+export interface AddCartPaymentMethodAction {
+  type: typeof CartActionTypes.ADD_CART_PAYMENT_METHOD
   payload: {
     last4Digits: string
     expireMonth: number
@@ -97,12 +106,8 @@ export interface AddPaymentMethodAction {
   }
 }
 
-export interface RemovePaymentMethodAction {
-  type: typeof CartActionTypes.REMOVE_PAYMENT_METHOD
-}
-
-export interface HideErrorAction {
-  type: typeof CartActionTypes.HIDE_ERROR
+export interface RemoveCartPaymentMethodAction {
+  type: typeof CartActionTypes.REMOVE_CART_PAYMENT_METHOD
 }
 
 // export type GetCartThunkAction = ThunkAction<
@@ -115,11 +120,12 @@ export interface HideErrorAction {
 export type CartActions =
   | CartRequestAction
   | CartFailureAction
-  | AddProductAction
-  | RemoveProductAction
-  | UpdateQuantityAction
-  | AddCouponAction
-  | RemoveCouponAction
-  | AddPaymentMethodAction
-  | RemovePaymentMethodAction
-  | HideErrorAction
+  | CartHideErrorAction
+  | LoadCartProductsAction
+  | AddCartProductAction
+  | RemoveCartProductAction
+  | UpdateCartProductQuantityAction
+  | AddCartCouponAction
+  | RemoveCartCouponAction
+  | AddCartPaymentMethodAction
+  | RemoveCartPaymentMethodAction
