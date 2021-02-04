@@ -7,16 +7,14 @@ import './styles.css'
 
 import Logo from '../../assets/images/logo.svg'
 
+import useCart from '../../hooks/useCart'
+
 import { AppState } from '../../store'
 
 const UserLayout: React.FC = ({ children }) => {
-  const { products: selectedProducts } = useSelector(
-    (state: AppState) => state.cart,
-  )
+  const { products: cartProducts } = useCart()
 
-  const productAmount = useMemo(() => selectedProducts.length, [
-    selectedProducts,
-  ])
+  const productsAmount = useMemo(() => cartProducts.length, [cartProducts])
 
   return (
     <div id="user-container">
@@ -33,8 +31,8 @@ const UserLayout: React.FC = ({ children }) => {
             <li className="user action cart">
               <Link to="/cart">
                 <FaShoppingCart />
-                {productAmount > 0 && (
-                  <span className="amount">{productAmount}</span>
+                {productsAmount > 0 && (
+                  <span className="amount">{productsAmount}</span>
                 )}
               </Link>
             </li>
