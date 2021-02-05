@@ -43,6 +43,7 @@
 - [:computer: Demo](#computer-demo)
 - [:rocket: Technologies](#rocket-technologies)
 - [:book: Learnings](#book-learnings)
+- [:anger: Difficulties](#anger-difficulties)
 
 <a id="about"></a>
 
@@ -85,9 +86,154 @@ This application uses the following technologies:
 
 ## :book: Learnings
 
-...
+- ### Handling forms
+
+Thanks to Formik and Yup, the management and validation of forms became easy to carry out the manipulation of the input data.
+
+```tsx
+const { values, errors, handleChange, submitForm } = useFormik({
+  initialValues: {
+    email: '',
+    password: '',
+  },
+  validationSchema: Yup.object({
+    email: Yup.string().email('Invalid email.').required('Required field.'),
+    password: Yup.string().required('Required field.'),
+  }),
+  onSubmit: ({ email, password }) => handleSubmitForm(email, password),
+  validateOnChange: false,
+})
+```
+
+- ### Sharing logics
+
+With the hook **useProducts** it was possible to reuse the logic of ordering the products at the beginning of the application.
+
+```tsx
+const useProducts = (): {
+  productsById: { [key: string]: Product }
+  productsList: Product[]
+} => {
+  const dispatch = useDispatch()
+
+  const productsById = useSelector((state: AppState) => state.products.byId)
+
+  const productsList = useMemo(
+    () => Object.keys(productsById).map(key => productsById[key]),
+    [productsById],
+  )
+
+  useEffect(() => {
+    if (Object.keys(productsById).length > 0) return
+
+    dispatch(getProducts())
+  }, [dispatch, productsById])
+
+  return {
+    productsById,
+    productsList,
+  }
+}
+```
+
+- ### Sharing simple states
+
+With the contexts, it was possible to use a simpler way of sharing states between the components.
+
+```tsx
+export const NotificationContext = React.createContext<NotificationData>(
+  {} as NotificationData,
+)
+
+export const NotificationProvider: React.FC = ({ children }) => {
+  const [notification, setNotification] = useState<Notification>({
+    open: false,
+    title: '',
+    description: '',
+  })
+
+  const showNotification = useCallback((title: string, description: string) => {
+    setNotification({
+      open: true,
+      title,
+      description,
+    })
+  }, [])
+
+  const hideNotification = useCallback(() => {
+    setNotification(oldNotification => ({
+      ...oldNotification,
+      open: false,
+    }))
+  }, [])
+
+  return (
+    <NotificationContext.Provider
+      value={{ notification, showNotification, hideNotification }}
+    >
+      {children}
+      <Notification />
+    </NotificationContext.Provider>
+  )
+}
+
+const useNotification = (): NotificationData => {
+  const context = useContext(NotificationContext)
+
+  if (!context) {
+    throw new Error(
+      'useNotification must be used within a NotificationProvider',
+    )
+  }
+
+  return context
+}
+```
+
+- ### Memorized values
+
+With the hook **useMemo**, it was possible to create a memorized value for a variable and this value will only change if one of its dependencies changes.
+
+```tsx
+const useCart = (): {
+  // ...
+} => {
+  // ...
+
+  const {
+    products: selectedProducts,
+    // ...
+  } = useSelector((state: AppState) => state.cart)
+
+  const { productsById } = useProducts()
+
+  const cartProducts: Product[] = useMemo(() => {
+    return selectedProducts.map(selectedProduct => ({
+      ...productsById[selectedProduct.id],
+      quantity: selectedProduct.quantity,
+    }))
+  }, [selectedProducts, productsById])
+
+  const haveCartProducts = useMemo(() => cartProducts.length > 0, [
+    cartProducts,
+  ])
+
+  // ...
+}
+```
+
+<a id="difficulties"></a>
+
+## :anger: Difficulties
+
+- Name HTML tags and CSS classes
+- Understand the flow of Redux Thunk
+- Handling input date
+- Handle cart loading on session
+- View purchase summary page
 
 ---
+
 <p align="center">
   Made with 💚 by <a href="https://github.com/igooralm192" target="_blank">Igor Almeida</a>
 </p>

@@ -5,6 +5,7 @@ import './styles.css'
 import Image from '../../../components/Image'
 
 import { Product } from '../../../store/products/types'
+import formatNumberToBRL from '../../../utils/formatNumberToBRL'
 
 interface Props {
   products: Product[]
@@ -17,7 +18,6 @@ const ProductsList: React.FC<Props> = ({ products, onAddProduct }) => {
       {products.map(product => (
         <li key={product.id} className="product item">
           <Image
-            // loading="lazy"
             className="product image"
             src={product.imageUrl}
             alt="Product"
@@ -25,12 +25,7 @@ const ProductsList: React.FC<Props> = ({ products, onAddProduct }) => {
 
           <div className="product detail">
             <h4 className="name">{product.name}</h4>
-            <p className="price">
-              {Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format(product.price)}
-            </p>
+            <p className="price">{formatNumberToBRL(product.price)}</p>
           </div>
 
           <button

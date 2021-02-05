@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect } from 'react-router-dom'
 
 import PrivateRoute from './PrivateRoute'
 import ProtectedRoute from './ProtectedRoute'
@@ -15,17 +15,15 @@ import Purchase from '../views/Purchase'
 const Routes: React.FC = () => {
   return (
     <Router>
-      <Switch>
-        <ProtectedRoute component={Welcome} path="/welcome" />
-        <ProtectedRoute component={SignIn} path="/sign-in" />
-        <ProtectedRoute component={SignUp} path="/sign-up" />
+      <ProtectedRoute component={Welcome} path="/welcome" />
+      <ProtectedRoute component={SignIn} path="/sign-in" />
+      <ProtectedRoute component={SignUp} path="/sign-up" />
 
-        <PrivateRoute component={Products} path="/products" />
-        <PrivateRoute component={Cart} path="/cart" />
-        <PrivateRoute component={Purchase} path="/purchase" />
+      <PrivateRoute component={Products} path="/products" />
+      <PrivateRoute component={Cart} path="/cart" />
+      <PrivateRoute component={Purchase} path="/purchase" />
 
-        <Redirect exact from="/" to="/welcome" />
-      </Switch>
+      <Redirect exact from="/" to="/welcome" />
     </Router>
   )
 }

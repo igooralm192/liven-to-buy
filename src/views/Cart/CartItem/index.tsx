@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import Image from '../../../components/Image'
+import formatNumberToBRL from '../../../utils/formatNumberToBRL'
 
 import './styles.css'
 
@@ -51,12 +52,7 @@ const CartItem: React.FC<Props> = ({
       </div>
       <div className="total">
         <h6 className="label">Total</h6>
-        <p className="value">
-          {Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(price * quantity)}
-        </p>
+        <p className="value">{formatNumberToBRL(price)}</p>
       </div>
       <button type="button" className="remove action" onClick={onRemoveItem}>
         Remove

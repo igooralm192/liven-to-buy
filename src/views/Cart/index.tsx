@@ -26,12 +26,6 @@ import { checkoutCart } from '../../store/cart/thunks'
 
 import formatNumberToBRL from '../../utils/formatNumberToBRL'
 
-/*
-  TODO:
-  - [x] Show message when cart is empty.
-  - [ ] Create array of valid coupons.
-*/
-
 const Cart: React.FC = () => {
   const history = useHistory()
   const dispatch = useDispatch()
