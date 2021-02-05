@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './styles.css'
 
@@ -20,6 +20,8 @@ import {
 } from '../../store/cart/actions'
 
 import formatNumberToBRL from '../../utils/formatNumberToBRL'
+import { checkoutCart } from '../../store/cart/thunks'
+import { AppState } from '../../store'
 
 /*
   TODO:
@@ -29,6 +31,8 @@ import formatNumberToBRL from '../../utils/formatNumberToBRL'
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch()
+
+  const { isFetching, error } = useSelector((state: AppState) => state.cart)
 
   const {
     products,
@@ -91,8 +95,14 @@ const Cart: React.FC = () => {
   }
 
   function handleCheckout() {
-    console.log('CHECKOUT')
+    dispatch(checkoutCart())
   }
+
+  useEffect(() => {
+    if (!error) return
+
+    console.log(error)
+  }, [error])
 
   return (
     <main id="cart-container" className="content">
@@ -174,8 +184,9 @@ const Cart: React.FC = () => {
               type="button"
               className="cart finish action"
               onClick={handleCheckout}
+              disabled={isFetching}
             >
-              Finish
+              {isFetching ? `...` : 'Finish'}
             </button>
           </div>
         </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -14,9 +14,9 @@ import * as Yup from 'yup'
 
 import './styles.css'
 
-import Notification from '../../components/Notification'
-
 import { RegisterErrorsCode } from '../../api/auth/types'
+
+import useNotification from '../../hooks/useNotification'
 
 import { AppState } from '../../store'
 import { hideError } from '../../store/auth/actions'
@@ -26,9 +26,7 @@ const SignUp: React.FC = () => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const { isFetching, error, isAuthenticated } = useSelector(
-    (state: AppState) => state.auth,
-  )
+  const { isFetching, error } = useSelector((state: AppState) => state.auth)
 
   const { values, errors, handleChange, submitForm } = useFormik({
     initialValues: {
@@ -54,18 +52,7 @@ const SignUp: React.FC = () => {
     validateOnChange: false,
   })
 
-  const [notificationOpen, setNotificationOpen] = useState(false)
-  const [notificationTitle, setNotificationTitle] = useState('')
-  const [notificationDescription, setNotificationDescription] = useState('')
-
-  function closeNotification() {
-    dispatch(hideError())
-    setNotificationOpen(oldOpen => {
-      if (oldOpen) return false
-
-      return oldOpen
-    })
-  }
+  const { notification, showNotification, hideNotification } = useNotification()
 
   function handleSubmitForm(
     name: string,
@@ -77,34 +64,27 @@ const SignUp: React.FC = () => {
     dispatch(createUser(name, email, cpf, new Date(birthdate), password))
   }
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) return
-
-  //   history.push('/products')
-  // }, [isAuthenticated, history])
-
   useEffect(() => {
-    if (!error) return () => {}
+    if (!error) {
+      hideNotification()
+      return
+    }
 
     switch (error) {
       case RegisterErrorsCode.USER_EXISTS:
-        setNotificationTitle('Found user')
-        setNotificationDescription('This user already exists.')
+        showNotification('Found user', 'This user already exists.')
         break
 
       default:
         break
     }
-
-    setNotificationOpen(true)
-
-    const timeout = setTimeout(() => closeNotification(), 5000)
-
-    return () => {
-      clearTimeout(timeout)
-      closeNotification()
-    }
   }, [error])
+
+  useEffect(() => {
+    if (notification.open) return
+
+    dispatch(hideError())
+  }, [notification.open, dispatch])
 
   return (
     <section className="sign-up container">
@@ -214,13 +194,6 @@ const SignUp: React.FC = () => {
           </button>
         </Link>
       </div>
-
-      <Notification
-        open={notificationOpen}
-        title={notificationTitle}
-        description={notificationDescription}
-        onClose={closeNotification}
-      />
     </section>
   )
 }

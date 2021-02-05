@@ -1,3 +1,7 @@
+import { ThunkAction } from 'redux-thunk'
+
+import { AppState } from '..'
+
 export const CartActionTypes = {
   CART_REQUEST: 'CART_REQUEST',
   CART_FAILURE: 'CART_FAILURE',
@@ -110,12 +114,12 @@ export interface RemoveCartPaymentMethodAction {
   type: typeof CartActionTypes.REMOVE_CART_PAYMENT_METHOD
 }
 
-// export type GetCartThunkAction = ThunkAction<
-//   Promise<void>,
-//   AppState,
-//   void,
-//   CartActions
-// >
+export type CheckoutCartThunkAction = ThunkAction<
+  Promise<void>,
+  AppState,
+  void,
+  CartActions
+>
 
 export type CartActions =
   | CartRequestAction
