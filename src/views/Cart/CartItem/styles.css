@@ -1,5 +1,6 @@
 .cart.items .cart.item {
   position: relative;
+  height: 125px;
   padding: 30px 25px;
 
   display: flex;
@@ -18,10 +19,12 @@
 .cart.items .cart.item .detail {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .cart.items .cart.item .detail .image {
   width: 80px;
+  height: 100%;
   border-radius: 16px;
 
   margin-right: 20px;

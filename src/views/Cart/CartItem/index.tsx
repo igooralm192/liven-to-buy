@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
+import Image from '../../../components/Image'
 
 import './styles.css'
 
@@ -25,7 +26,7 @@ const CartItem: React.FC<Props> = ({
   return (
     <li className="cart item">
       <div className="detail">
-        <img className="image" src={imageUrl} alt="Cart product" />
+        <Image className="image" src={imageUrl} alt="Cart product" />
         <p className="name">{name}</p>
       </div>
       <div className="quantity">
