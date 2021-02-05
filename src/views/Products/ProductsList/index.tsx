@@ -15,7 +15,7 @@ const ProductsList: React.FC<Props> = ({ products, onAddProduct }) => {
       {products.map(product => (
         <li key={product.id} className="product item">
           <img
-            loading="lazy"
+            // loading="lazy"
             className="product image"
             src={product.imageUrl}
             alt="Product"
