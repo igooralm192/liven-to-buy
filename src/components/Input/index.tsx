@@ -9,13 +9,13 @@ interface IconProps {
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   icon: React.FC<IconProps>
   error?: string
-  size?: 'small' | 'large'
+  // size?: 'small' | 'large'
 }
 
 const Input: React.FC<Props> = ({
   icon: Icon,
   error = null,
-  size = 'large',
+  // size = 'large',
   className,
   ...props
 }) => {

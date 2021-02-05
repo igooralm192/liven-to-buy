@@ -3,11 +3,11 @@ import React, { ButtonHTMLAttributes } from 'react'
 import './styles.css'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  size?: 'small' | 'large'
+  // size?: 'small' | 'large'
 }
 
 const Button: React.FC<Props> = ({
-  size = 'large',
+  // size = 'large',
   children,
   className,
   ...props

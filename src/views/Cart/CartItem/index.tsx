@@ -24,7 +24,6 @@ const CartItem: React.FC<Props> = ({
   onDecrementQuantity,
   onRemoveItem,
 }) => {
-  console.log(price)
   return (
     <li className="cart item">
       <div className="detail">
