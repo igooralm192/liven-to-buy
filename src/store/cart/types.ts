@@ -8,6 +8,7 @@ export const CartActionTypes = {
   CART_HIDE_ERROR: 'CART_HIDE_ERROR',
 
   LOAD_CART_PRODUCTS: 'LOAD_CART_PRODUCTS',
+  CLEAR_CART_PRODUCTS: 'CLEAR_CART_PRODUCTS',
 
   ADD_CART_PRODUCT: 'ADD_CART_PRODUCT',
   REMOVE_CART_PRODUCT: 'REMOVE_CART_PRODUCT',
@@ -18,6 +19,8 @@ export const CartActionTypes = {
 
   ADD_CART_PAYMENT_METHOD: 'ADD_CART_PAYMENT_METHOD',
   REMOVE_CART_PAYMENT_METHOD: 'REMOVE_CART_PAYMENT_METHOD',
+
+  SET_CHECKOUT: 'SET_CHECKOUT',
 } as const
 
 type CartActionTypes = typeof CartActionTypes[keyof typeof CartActionTypes]
@@ -45,6 +48,7 @@ export interface CartState {
   products: CartProduct[]
   coupon?: CartCoupon
   paymentMethod?: CartPaymentMethod
+  checkout: boolean
 }
 
 export interface CartRequestAction {
@@ -64,6 +68,10 @@ export interface CartHideErrorAction {
 
 export interface LoadCartProductsAction {
   type: typeof CartActionTypes.LOAD_CART_PRODUCTS
+}
+
+export interface ClearCartProductsAction {
+  type: typeof CartActionTypes.CLEAR_CART_PRODUCTS
 }
 
 export interface AddCartProductAction {
@@ -114,6 +122,13 @@ export interface RemoveCartPaymentMethodAction {
   type: typeof CartActionTypes.REMOVE_CART_PAYMENT_METHOD
 }
 
+export interface SetCheckoutAction {
+  type: typeof CartActionTypes.SET_CHECKOUT
+  payload: {
+    checkout: boolean
+  }
+}
+
 export type CheckoutCartThunkAction = ThunkAction<
   Promise<void>,
   AppState,
@@ -126,6 +141,7 @@ export type CartActions =
   | CartFailureAction
   | CartHideErrorAction
   | LoadCartProductsAction
+  | ClearCartProductsAction
   | AddCartProductAction
   | RemoveCartProductAction
   | UpdateCartProductQuantityAction
@@ -133,3 +149,4 @@ export type CartActions =
   | RemoveCartCouponAction
   | AddCartPaymentMethodAction
   | RemoveCartPaymentMethodAction
+  | SetCheckoutAction

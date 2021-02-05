@@ -1,4 +1,4 @@
-import { cartFailure, cartRequest } from './actions'
+import { cartRequest, cartFailure, setCheckout } from './actions'
 import { CheckoutCartThunkAction } from './types'
 
 import * as api from '../../api/payment'
@@ -19,6 +19,8 @@ export const checkoutCart = (): CheckoutCartThunkAction => {
 
     try {
       await api.makePayment(paymentMethod)
+
+      dispatch(setCheckout(true))
     } catch (err) {
       dispatch(cartFailure(err.message))
     }

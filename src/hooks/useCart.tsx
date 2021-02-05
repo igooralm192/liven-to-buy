@@ -16,16 +16,24 @@ import {
 const useCart = (): {
   products: Product[]
   isEmpty: boolean
+  isFetching: boolean
+  checkout: boolean
   coupon?: CartCoupon
   paymentMethod?: CartPaymentMethod
+  error?: string
   incrementQuantity: (product: Product) => void
   decrementQuantity: (product: Product) => void
 } => {
   const dispatch = useDispatch()
 
-  const { products: selectedProducts, coupon, paymentMethod } = useSelector(
-    (state: AppState) => state.cart,
-  )
+  const {
+    products: selectedProducts,
+    coupon,
+    paymentMethod,
+    isFetching,
+    error,
+    checkout,
+  } = useSelector((state: AppState) => state.cart)
 
   const { productsById } = useProducts()
 
@@ -69,8 +77,11 @@ const useCart = (): {
   return {
     products: cartProducts,
     isEmpty: !haveCartProducts,
+    isFetching,
+    checkout,
     coupon,
     paymentMethod,
+    error,
     incrementQuantity,
     decrementQuantity,
   }

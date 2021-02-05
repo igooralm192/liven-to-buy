@@ -5,6 +5,7 @@ const CART_PRODUCTS_KEY = '@liven-to-buy/cart-products'
 const initialState: CartState = {
   isFetching: false,
   products: [],
+  checkout: false,
 }
 
 const cartReducer = (state = initialState, action: CartActions): CartState => {
@@ -39,6 +40,16 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
       return {
         ...state,
         products: cartProducts,
+      }
+    }
+
+    case CartActionTypes.CLEAR_CART_PRODUCTS: {
+      localStorage.removeItem(CART_PRODUCTS_KEY)
+
+      return {
+        ...state,
+        products: [],
+        checkout: false,
       }
     }
 
@@ -127,6 +138,12 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
       return {
         ...state,
         paymentMethod: undefined,
+      }
+
+    case CartActionTypes.SET_CHECKOUT:
+      return {
+        ...state,
+        checkout: action.payload.checkout,
       }
 
     default:

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import './styles.css'
 
@@ -9,7 +10,10 @@ import CartCouponForm from './CartCouponForm'
 import CartPaymentMethod from './CartPaymentMethod'
 import CartPaymentMethodForm from './CartPaymentMethodForm'
 
+import { PaymentErrorsCode } from '../../api/payment/types'
+
 import useCart from '../../hooks/useCart'
+import useNotification from '../../hooks/useNotification'
 
 import {
   removeCartProduct,
@@ -18,10 +22,9 @@ import {
   addCartPaymentMethod,
   removeCartPaymentMethod,
 } from '../../store/cart/actions'
+import { checkoutCart } from '../../store/cart/thunks'
 
 import formatNumberToBRL from '../../utils/formatNumberToBRL'
-import { checkoutCart } from '../../store/cart/thunks'
-import { AppState } from '../../store'
 
 /*
   TODO:
@@ -30,15 +33,17 @@ import { AppState } from '../../store'
 */
 
 const Cart: React.FC = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
-
-  const { isFetching, error } = useSelector((state: AppState) => state.cart)
 
   const {
     products,
     isEmpty,
+    isFetching,
+    checkout,
     coupon,
     paymentMethod,
+    error,
     incrementQuantity,
     decrementQuantity,
   } = useCart()
@@ -73,6 +78,8 @@ const Cart: React.FC = () => {
     [cartFinalValue],
   )
 
+  const { showNotification } = useNotification()
+
   function handleAddCoupon(newCoupon: string) {
     dispatch(addCartCoupon(newCoupon, 15))
   }
@@ -101,8 +108,27 @@ const Cart: React.FC = () => {
   useEffect(() => {
     if (!error) return
 
-    console.log(error)
+    switch (error) {
+      case PaymentErrorsCode.REQUIRED_PAYMENT_METHOD:
+        showNotification(
+          'Payment method required',
+          'Please add an least one payment method.',
+        )
+        break
+
+      default:
+        break
+    }
   }, [error])
+
+  useEffect(() => {
+    if (!checkout) return
+
+    history.push('/purchase', {
+      cartProducts: products,
+      cartCoupon: coupon,
+    })
+  }, [checkout, history, products, coupon])
 
   return (
     <main id="cart-container" className="content">

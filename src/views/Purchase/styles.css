@@ -95,3 +95,9 @@
 .purchase-total .total {
   font-size: 24px;
 }
+
+.purchase-line {
+  border: 1px solid #EFEFEF;
+  outline: none;
+  margin: 10px 0;
+}

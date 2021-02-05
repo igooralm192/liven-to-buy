@@ -27,6 +27,12 @@ export const loadCartProducts = (): CartActions => {
   }
 }
 
+export const clearCartProducts = (): CartActions => {
+  return {
+    type: CartActionTypes.CLEAR_CART_PRODUCTS,
+  }
+}
+
 export const addCartProduct = (
   productId: string,
   quantity = 1,
@@ -92,5 +98,14 @@ export const addCartPaymentMethod = (
 export const removeCartPaymentMethod = (): CartActions => {
   return {
     type: CartActionTypes.REMOVE_CART_PAYMENT_METHOD,
+  }
+}
+
+export const setCheckout = (checkout: boolean): CartActions => {
+  return {
+    type: CartActionTypes.SET_CHECKOUT,
+    payload: {
+      checkout,
+    },
   }
 }
