@@ -9,11 +9,14 @@ import './styles.css'
 
 import { LoginErrorsCode } from '../../api/auth/types'
 
+import Button from '../../components/Button'
+
 import useNotification from '../../hooks/useNotification'
 
 import { AppState } from '../../store'
 import { hideError } from '../../store/auth/actions'
 import { authenticateUser } from '../../store/auth/thunks'
+import Input from '../../components/Input'
 
 const SignIn: React.FC = () => {
   const history = useHistory()
@@ -70,57 +73,49 @@ const SignIn: React.FC = () => {
   }, [notification.open, dispatch])
 
   return (
-    <section className="sign-in container">
-      <div className="sign-in back">
+    <section id="sign-in-container">
+      <div className="back">
         <FaArrowLeft onClick={() => history.goBack()} />
       </div>
 
-      <div className="sign-in title">Sign in</div>
+      <div className="title">Sign in</div>
 
-      <div className="sign-in logged">
+      <div className="logged">
         Don&apos;t have an account?
         <Link to="/sign-up"> Sign up.</Link>
       </div>
 
-      <form className="sign-in form">
-        <fieldset
-          className={`sign-in form-control ${errors.email ? 'error' : ''}`}
-        >
-          <input
-            name="email"
-            type="text"
-            placeholder="E-mail"
-            value={values.email}
-            onChange={handleChange}
-          />
-          <FaEnvelope className="icon" />
-          <span className="error-message">{errors.email}</span>
-        </fieldset>
-        <fieldset
-          className={`sign-in form-control ${errors.password ? 'error' : ''}`}
-        >
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={values.password}
-            onChange={handleChange}
-          />
-          <FaLock className="icon" />
-          <span className="error-message">{errors.password}</span>
-        </fieldset>
+      <form id="sign-in-form" className="form">
+        <Input
+          name="email"
+          type="text"
+          placeholder="E-mail"
+          value={values.email}
+          onChange={handleChange}
+          icon={FaEnvelope}
+          error={errors.email}
+        />
+
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={values.password}
+          onChange={handleChange}
+          icon={FaLock}
+          error={errors.password}
+        />
       </form>
 
-      <div className="sign-in actions">
+      <div id="sign-in-actions" className="actions">
         <Link to="/sign-in">
-          <button
-            type="button"
-            className="sign-in action"
+          <Button
+            className="action"
             onClick={() => submitForm()}
             disabled={isFetching}
           >
             {isFetching ? `...` : `Sign in`}
-          </button>
+          </Button>
         </Link>
       </div>
     </section>
