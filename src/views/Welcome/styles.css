@@ -29,24 +29,13 @@
   margin-top: 15px;
 }
 
-@media (min-width: 700px) and (max-width: 850px) {
-  #welcome-title>img {
-    width: 250px;
-  }
-
-}
-
-@media (min-width: 550px) and (max-width: 700px) {
+@media (min-width: 550px) and (max-width: 850px) {
   #welcome-title>img {
     width: 250px;
   }
 }
 
 @media (max-width: 550px) {
-  #welcome-container {
-    padding: 0 20px;
-  }
-
   #welcome-title>img {
     width: 220px;
   }

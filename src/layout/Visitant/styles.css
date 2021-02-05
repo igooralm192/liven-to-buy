@@ -40,3 +40,9 @@
   }
 }
 
+@media (max-width: 550px) {
+  #visitant-background + * {
+    padding: 0 20px;
+  }
+}
+
