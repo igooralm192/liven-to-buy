@@ -1,0 +1,22 @@
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 24px;
+
+  color: white;
+  background-color: #62E597;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #50c47e;
+}
