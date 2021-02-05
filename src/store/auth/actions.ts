@@ -40,6 +40,12 @@ export const createUserFailure = (error: string): AuthActions => {
   }
 }
 
+export const logoutUser = (): AuthActions => {
+  return {
+    type: AuthActionTypes.LOGOUT_USER,
+  }
+}
+
 export const hideError = (): AuthActions => {
   return {
     type: AuthActionTypes.HIDE_ERROR,

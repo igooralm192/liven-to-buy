@@ -63,7 +63,14 @@ const authReducer = (state = initialState, action: AuthActions): AuthState => {
         isFetching: false,
         error: action.payload.error,
       }
+    case AuthActionTypes.LOGOUT_USER:
+      localStorage.removeItem(LOGGED_USER_KEY)
 
+      return {
+        ...state,
+        isAuthenticated: false,
+        loggedUser: undefined,
+      }
     case AuthActionTypes.HIDE_ERROR:
       return {
         ...state,

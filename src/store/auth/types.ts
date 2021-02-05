@@ -18,6 +18,8 @@ export const AuthActionTypes = {
   CREATE_USER_SUCCESS: 'CREATE_USER_SUCCESS',
   CREATE_USER_FAILURE: 'CREATE_USER_FAILURE',
 
+  LOGOUT_USER: 'LOGOUT_USER',
+
   HIDE_ERROR: 'HIDE_ERROR',
 } as const
 
@@ -64,6 +66,10 @@ export interface CreateUserFailureAction {
   }
 }
 
+export interface LogoutUserAction {
+  type: typeof AuthActionTypes.LOGOUT_USER
+}
+
 export interface HideErrorAction {
   type: typeof AuthActionTypes.HIDE_ERROR
 }
@@ -89,4 +95,5 @@ export type AuthActions =
   | CreateUserRequestAction
   | CreateUserSuccessAction
   | CreateUserFailureAction
+  | LogoutUserAction
   | HideErrorAction

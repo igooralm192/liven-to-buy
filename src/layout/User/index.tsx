@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
@@ -9,9 +9,13 @@ import Logo from '../../assets/images/logo.svg'
 
 import useCart from '../../hooks/useCart'
 
+import { logoutUser } from '../../store/auth/actions'
 import { AppState } from '../../store'
 
 const UserLayout: React.FC = ({ children }) => {
+  const dispatch = useDispatch()
+  // const { isAuthenticated } = useSelector((state: AppState) => state.auth)
+
   const { products: cartProducts } = useCart()
 
   const productsAmount = useMemo(() => cartProducts.length, [cartProducts])
@@ -24,11 +28,19 @@ const UserLayout: React.FC = ({ children }) => {
             <img className="user logo" src={Logo} alt="Logo" />
           </Link>
 
-          <ul className="user actions">
-            <li className="user action">
+          <ul className="user options">
+            <li id="user-option" className="user option">
               <FaUser />
+              <ul id="user-actions">
+                <li
+                  className="user-action"
+                  onClick={() => dispatch(logoutUser())}
+                >
+                  Logout
+                </li>
+              </ul>
             </li>
-            <li className="user action cart">
+            <li className="user option cart">
               <Link to="/cart">
                 <FaShoppingCart />
                 {productsAmount > 0 && (
