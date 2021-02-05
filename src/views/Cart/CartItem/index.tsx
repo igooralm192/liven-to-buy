@@ -24,6 +24,7 @@ const CartItem: React.FC<Props> = ({
   onDecrementQuantity,
   onRemoveItem,
 }) => {
+  console.log(price)
   return (
     <li className="cart item">
       <div className="detail">
@@ -52,7 +53,7 @@ const CartItem: React.FC<Props> = ({
       </div>
       <div className="total">
         <h6 className="label">Total</h6>
-        <p className="value">{formatNumberToBRL(price)}</p>
+        <p className="value">{formatNumberToBRL(price * quantity)}</p>
       </div>
       <button type="button" className="remove action" onClick={onRemoveItem}>
         Remove
