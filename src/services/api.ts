@@ -81,3 +81,9 @@ productsApi.interceptors.response.use(
     throw new AppError('INTERNAL_SERVER_ERROR', 500)
   },
 )
+
+export const paymentApi = {
+  pay: async (): Promise<void> => {
+    await new Promise(resolve => setTimeout(resolve, 3000))
+  },
+}

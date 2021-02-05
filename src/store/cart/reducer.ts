@@ -1,8 +1,11 @@
-import { CartActions, CartState, CartActionTypes } from './types'
+import { CartActions, CartState, CartActionTypes, CartProduct } from './types'
+
+const CART_PRODUCTS_KEY = '@liven-to-buy/cart-products'
 
 const initialState: CartState = {
   isFetching: false,
   products: [],
+  checkout: false,
 }
 
 const cartReducer = (state = initialState, action: CartActions): CartState => {
@@ -21,7 +24,36 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
         error: action.payload.error,
       }
 
-    case CartActionTypes.ADD_PRODUCT: {
+    case CartActionTypes.CART_HIDE_ERROR:
+      return {
+        ...state,
+        error: undefined,
+      }
+
+    case CartActionTypes.LOAD_CART_PRODUCTS: {
+      const serializedCartProducts = localStorage.getItem(CART_PRODUCTS_KEY)
+
+      const cartProducts: CartProduct[] = serializedCartProducts
+        ? JSON.parse(serializedCartProducts)
+        : []
+
+      return {
+        ...state,
+        products: cartProducts,
+      }
+    }
+
+    case CartActionTypes.CLEAR_CART_PRODUCTS: {
+      localStorage.removeItem(CART_PRODUCTS_KEY)
+
+      return {
+        ...state,
+        products: [],
+        checkout: false,
+      }
+    }
+
+    case CartActionTypes.ADD_CART_PRODUCT: {
       const { productId, quantity } = action.payload
 
       const findProduct = state.products.find(
@@ -30,24 +62,30 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
 
       if (findProduct) return state
 
+      const updatedProducts = [
+        ...state.products,
+        {
+          id: productId,
+          quantity: quantity ?? 1,
+        },
+      ]
+
+      localStorage.setItem(CART_PRODUCTS_KEY, JSON.stringify(updatedProducts))
+
       return {
         ...state,
-        products: [
-          ...state.products,
-          {
-            id: productId,
-            quantity: quantity ?? 1,
-          },
-        ],
+        products: updatedProducts,
       }
     }
 
-    case CartActionTypes.REMOVE_PRODUCT: {
+    case CartActionTypes.REMOVE_CART_PRODUCT: {
       const { productId } = action.payload
 
       const filteredProducts = state.products.filter(
         product => product.id !== productId,
       )
+
+      localStorage.setItem(CART_PRODUCTS_KEY, JSON.stringify(filteredProducts))
 
       return {
         ...state,
@@ -55,7 +93,7 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
       }
     }
 
-    case CartActionTypes.UPDATE_QUANTITY: {
+    case CartActionTypes.UPDATE_CART_PRODUCT_QUANTITY: {
       const { productId, quantity } = action.payload
 
       const findProductIndex = state.products.findIndex(
@@ -67,16 +105,45 @@ const cartReducer = (state = initialState, action: CartActions): CartState => {
       const updatedProducts = [...state.products]
       updatedProducts[findProductIndex].quantity = quantity
 
+      localStorage.setItem(CART_PRODUCTS_KEY, JSON.stringify(updatedProducts))
+
       return {
         ...state,
         products: updatedProducts,
       }
     }
 
-    case CartActionTypes.HIDE_ERROR:
+    case CartActionTypes.ADD_CART_COUPON:
       return {
         ...state,
-        error: undefined,
+        coupon: {
+          code: action.payload.coupon,
+          discount: action.payload.discount,
+        },
+      }
+
+    case CartActionTypes.REMOVE_CART_COUPON:
+      return {
+        ...state,
+        coupon: undefined,
+      }
+
+    case CartActionTypes.ADD_CART_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: { ...action.payload },
+      }
+
+    case CartActionTypes.REMOVE_CART_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: undefined,
+      }
+
+    case CartActionTypes.SET_CHECKOUT:
+      return {
+        ...state,
+        checkout: action.payload.checkout,
       }
 
     default:

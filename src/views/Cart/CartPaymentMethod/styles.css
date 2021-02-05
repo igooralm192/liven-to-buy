@@ -1,0 +1,37 @@
+.cart.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart.payment-method .detail {
+  display: flex;
+  align-items: center;
+  color: #c2c2c2;
+}
+
+.cart.payment-method .detail .icon {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.cart.payment-method .detail .card {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cart.payment-method .cart.payment-method.action {
+  border: none;
+  outline: none;
+  color: #FF4A4A;
+  cursor: pointer;
+  background-color: transparent;
+
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.cart.payment-method .cart.payment-method.action:hover {
+  color: #c03e3e;
+}

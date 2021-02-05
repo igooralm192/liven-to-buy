@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaArrowLeft, FaEnvelope, FaLock } from 'react-icons/fa'
@@ -7,9 +7,9 @@ import * as Yup from 'yup'
 
 import './styles.css'
 
-import Notification from '../../components/Notification'
-
 import { LoginErrorsCode } from '../../api/auth/types'
+
+import useNotification from '../../hooks/useNotification'
 
 import { AppState } from '../../store'
 import { hideError } from '../../store/auth/actions'
@@ -19,9 +19,7 @@ const SignIn: React.FC = () => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const { isFetching, error, isAuthenticated } = useSelector(
-    (state: AppState) => state.auth,
-  )
+  const { isFetching, error } = useSelector((state: AppState) => state.auth)
 
   const { values, errors, handleChange, submitForm } = useFormik({
     initialValues: {
@@ -36,41 +34,26 @@ const SignIn: React.FC = () => {
     validateOnChange: false,
   })
 
-  const [notificationOpen, setNotificationOpen] = useState(false)
-  const [notificationTitle, setNotificationTitle] = useState('')
-  const [notificationDescription, setNotificationDescription] = useState('')
-
-  function closeNotification() {
-    dispatch(hideError())
-    setNotificationOpen(oldOpen => {
-      if (oldOpen) return false
-
-      return oldOpen
-    })
-  }
+  const { notification, showNotification, hideNotification } = useNotification()
 
   function handleSubmitForm(email: string, password: string) {
     dispatch(authenticateUser(email, password))
   }
 
   useEffect(() => {
-    if (!isAuthenticated) return
-
-    history.push('/products')
-  }, [isAuthenticated, history])
-
-  useEffect(() => {
-    if (!error) return () => {}
+    if (!error) {
+      hideNotification()
+      return
+    }
 
     switch (error) {
       case LoginErrorsCode.INCORRECT_EMAIL:
-        setNotificationTitle('Incorrect e-mail')
-        setNotificationDescription('This user does not exists.')
+        showNotification('Incorrect e-mail', 'This user does not exists.')
         break
 
       case LoginErrorsCode.INCORRECT_PASSWORD:
-        setNotificationTitle('Incorrect password')
-        setNotificationDescription(
+        showNotification(
+          'Incorrect password',
           'This password does not match with this user.',
         )
         break
@@ -78,16 +61,13 @@ const SignIn: React.FC = () => {
       default:
         break
     }
-
-    setNotificationOpen(true)
-
-    const timeout = setTimeout(() => closeNotification(), 5000)
-
-    return () => {
-      clearTimeout(timeout)
-      closeNotification()
-    }
   }, [error])
+
+  useEffect(() => {
+    if (notification.open) return
+
+    dispatch(hideError())
+  }, [notification.open, dispatch])
 
   return (
     <section className="sign-in container">
@@ -143,13 +123,6 @@ const SignIn: React.FC = () => {
           </button>
         </Link>
       </div>
-
-      <Notification
-        open={notificationOpen}
-        title={notificationTitle}
-        description={notificationDescription}
-        onClose={closeNotification}
-      />
     </section>
   )
 }

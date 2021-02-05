@@ -1,0 +1,121 @@
+.cart.items .cart.item {
+  position: relative;
+  padding: 30px 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: white;
+  border-radius: 16px;
+  border: 2px solid #EFEFEF;
+}
+
+.cart.items .cart.item:not(:first-child) {
+  margin-top: 46px;
+}
+
+.cart.items .cart.item .detail {
+  display: flex;
+  align-items: center;
+}
+
+.cart.items .cart.item .detail .image {
+  width: 80px;
+  border-radius: 16px;
+
+  margin-right: 20px;
+}
+
+.cart.items .cart.item .detail .name {
+  font-family: Quicksand;
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 200px;
+}
+
+.cart.items .cart.item .quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart.items .cart.item .label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.counter.container {
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 30px;
+  overflow: auto;
+}
+
+.counter.container .counter.action {
+  padding: 10px 15px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  background-color: var(--primary-color);
+}
+
+.counter.container .counter.action:hover {
+  background-color: #50c07d;
+}
+
+.counter.container .counter.value {
+  padding: 0 20px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #ececec;
+}
+
+.cart.items .cart.item .total {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+}
+
+.cart.items .cart.item .total .value {
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.cart.items .cart.item .remove.action {
+  position: absolute;
+  right: 10px;
+  bottom: -30px;
+
+  border: none;
+  outline: none;
+  color: #FF4A4A;
+  cursor: pointer;
+  background-color: transparent;
+
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.cart.items .cart.item .remove.action:hover {
+  color: #c03e3e;
+}
