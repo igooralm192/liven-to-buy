@@ -78,7 +78,7 @@ const SignUp: React.FC = () => {
       default:
         break
     }
-  }, [error])
+  }, [error, showNotification, hideNotification])
 
   useEffect(() => {
     if (notification.open) return

@@ -84,11 +84,7 @@ const Cart: React.FC = () => {
     dispatch(addCartCoupon(newCoupon, 15))
   }
 
-  function handleAddPaymentMethod(
-    cardNumber: string,
-    cardExpireDate: string,
-    cardCvv: string,
-  ) {
+  function handleAddPaymentMethod(cardNumber: string, cardExpireDate: string) {
     const last4Digits = cardNumber.split('-')[3]
     const [expireMonth, expireYear] = cardExpireDate.split('/')
 
@@ -119,7 +115,7 @@ const Cart: React.FC = () => {
       default:
         break
     }
-  }, [error])
+  }, [error, showNotification])
 
   useEffect(() => {
     if (!checkout) return

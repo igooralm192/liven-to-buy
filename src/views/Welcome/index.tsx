@@ -13,8 +13,8 @@ const Welcome: React.FC = () => {
         <img src={Logo} alt="Logo" />
       </div>
       <div className="welcome description">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
+        This is Liven&apos;s virtual store, take a look at our products and
+        guarantee the best offers!
       </div>
 
       <div className="welcome actions">

@@ -83,7 +83,13 @@ productsApi.interceptors.response.use(
 )
 
 export const paymentApi = {
-  pay: async (): Promise<void> => {
-    await new Promise(resolve => setTimeout(resolve, 3000))
+  pay: async (
+    last4: string,
+    expMonth: number,
+    expYear: number,
+  ): Promise<void> => {
+    await new Promise(resolve =>
+      setTimeout(() => resolve([last4, expMonth, expYear]), 3000),
+    )
   },
 }

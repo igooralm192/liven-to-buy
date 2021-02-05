@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { FaShoppingCart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'

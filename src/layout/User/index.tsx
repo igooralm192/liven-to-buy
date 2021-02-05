@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
@@ -10,7 +10,6 @@ import Logo from '../../assets/images/logo.svg'
 import useCart from '../../hooks/useCart'
 
 import { logoutUser } from '../../store/auth/actions'
-import { AppState } from '../../store'
 
 const UserLayout: React.FC = ({ children }) => {
   const dispatch = useDispatch()
