@@ -20,7 +20,7 @@ export const getProducts = (): Promise<Product[]> => {
         id: productApi.id,
         name: productApi.name,
         price: +productApi.price,
-        imageUrl: productApi.image,
+        imageUrl: `https://picsum.photos/640/480?random=${productApi.id}`,
         quantity: productApi.stock,
         createdAt: new Date(productApi.createdAt),
       })),
