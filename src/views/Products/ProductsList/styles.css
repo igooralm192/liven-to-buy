@@ -19,12 +19,13 @@
   border: 2px solid #EFEFEF;
   background-color: white;
 
-  max-width: 250px;
+  width: 250px;
+  height: 300px;
 }
 
 .product.item .product.image {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 8px;
 }
 

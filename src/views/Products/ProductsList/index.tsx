@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { Product } from '../../../store/products/types'
-
 import './styles.css'
+
+import Image from '../../../components/Image'
+
+import { Product } from '../../../store/products/types'
 
 interface Props {
   products: Product[]
@@ -14,8 +16,8 @@ const ProductsList: React.FC<Props> = ({ products, onAddProduct }) => {
     <ul className="products list">
       {products.map(product => (
         <li key={product.id} className="product item">
-          <img
-            loading="lazy"
+          <Image
+            // loading="lazy"
             className="product image"
             src={product.imageUrl}
             alt="Product"

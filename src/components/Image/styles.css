@@ -1,0 +1,80 @@
+.image-error {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Quicksand;
+  font-weight: bolder;
+  font-size: 50px;
+  color: #FF4A4A;
+}
+
+.image-error > span {
+  height: auto;
+}
+
+
+.image-loading {
+  border-radius: 8px;
+
+  background: linear-gradient(270deg, #d3d3d3, #f0f0f0, #d3d3d3);
+  background-size: 600% 600%;
+
+  -webkit-animation: GradientAnimation 4s ease infinite;
+  -moz-animation: GradientAnimation 4s ease infinite;
+  animation: GradientAnimation 4s ease infinite;
+}
+
+.image-loading>img {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+}
+
+
+
+@-webkit-keyframes GradientAnimation {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes GradientAnimation {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes GradientAnimation {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
