@@ -1,26 +1,26 @@
 .products.list {
-  list-style: none;
-  display: flex;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 250px);
+  gap: 15px;
   justify-content: space-between;
-  flex-wrap: wrap;
-  margin-right: -10px;
   margin-bottom: 80px;
+
+  list-style: none;
 }
 
 .product.item {
+  width: 100%;
+  padding: 25px 20px 15px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  padding: 25px 20px 15px;
 
   border-radius: 16px;
   border: 2px solid #EFEFEF;
   background-color: white;
-
-  width: 250px;
-  /* height: 300px; */
 }
 
 .product.item .product.image {
